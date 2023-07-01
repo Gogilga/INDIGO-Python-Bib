@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDIGOServerConection &mdash; INDIGO Python  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ClientConection" href="ClientConection.html" />
+    <link rel="prev" title="INDIGOProperty" href="INDIGOProperty.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> INDIGO Python
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">INDIGO_Client:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="INDIGODevice.html">INDIGODevice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="INDIGOElement.html">INDIGOElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="INDIGOProperty.html">INDIGOProperty</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">INDIGOServerConection</a></li>
+</ul>
+<p class="caption"><span class="caption-text">INDIGO_Client_Example</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ClientConection.html">ClientConection</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">INDIGO Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">INDIGOServerConection</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/INDIGOServerConection.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="indigoserverconection">
+<h1>INDIGOServerConection<a class="headerlink" href="#indigoserverconection" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="INDIGO_Client.INDIGOServerConection">
+<em class="property">class </em><code class="descclassname">INDIGO_Client.</code><code class="descname">INDIGOServerConection</code><span class="sig-paren">(</span><em>name</em>, <em>host</em>, <em>port</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class that represents a Server and has all the tools for the connection and management of it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – Name of the server.</li>
+<li><strong>_host</strong> – IP adress of the server.</li>
+<li><strong>_port</strong> – Port for listener of the server. In INDIGO the default port is 7624.</li>
+<li><strong>_sock</strong> – This is a variable that will contain a socket connection to the server.</li>
+<li><strong>_endReading</strong> – Check if the socket has reached the end of reading for the pipeline of the server connection.</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/_thread.html#module-_thread" title="(in Python v3.11)"><strong>_thread</strong></a> – This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.</li>
+<li><strong>devices</strong> – A list of all devices of the server.</li>
+<li><strong>wait</strong> – Set a time to wait to execute some functions.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection._parseVectorTag">
+<code class="descname">_parseVectorTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection._parseVectorTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection._parseVectorTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here we create the new elements by instantiating an INDIGODevice and calling its _parserVectorTag method. Finally, we get
+the name of the device and the name of the property to check if it is in the list of listeners and execute its listener.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.11)"><em>xml.etree.ElementTree.Element</em></a>) – Element of the parser of XML message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection._parserMessageTag">
+<code class="descname">_parserMessageTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection._parserMessageTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection._parserMessageTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>_summary_</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.11)"><em>xml.etree.ElementTree.Element</em></a>) – Element of the parser of XML message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection._readerFunction">
+<code class="descname">_readerFunction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection._readerFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection._readerFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>In this function, we read all messages from the server and call some functions that implement the parser in each case. This is
+an infinte loop that only finish when the socket is closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection._send">
+<code class="descname">_send</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection._send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection._send" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to send messages to the server whenever needed. This message can be used to turn on or off some devices;
+create, modify or erase some property, etc</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Message to send.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.addMessageListener">
+<code class="descname">addMessageListener</code><span class="sig-paren">(</span><em>deviceName</em>, <em>listener</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.addMessageListener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.addMessageListener" title="Permalink to this definition">¶</a></dt>
+<dd><p>With this function we can add some listeners to the messages received that we want.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>deviceName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device.</li>
+<li><strong>listener</strong> (<em>function</em>) – Variable with a function that has the code of what we want the listener to do.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.addPropertyListener">
+<code class="descname">addPropertyListener</code><span class="sig-paren">(</span><em>deviceName</em>, <em>propertyName</em>, <em>listener</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.addPropertyListener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.addPropertyListener" title="Permalink to this definition">¶</a></dt>
+<dd><p>In this case we can add some listeners to the property that we want.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>deviceName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device where the property is.</li>
+<li><strong>propertyName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the property that we want to add the listener.</li>
+<li><strong>listener</strong> (<em>function</em>) – Variable with a function that has the code of what we want the listener to do.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.addServerListener">
+<code class="descname">addServerListener</code><span class="sig-paren">(</span><em>listener</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.addServerListener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.addServerListener" title="Permalink to this definition">¶</a></dt>
+<dd><p>With this function we can add some listeners to the server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>listener</strong> (<em>function</em>) – Variable with a function that has the code of what we want the listener to do.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>In this function we create a connection with the server using a socket connection. Also, we launch a thread with the execution of
+_readerFunction to read all messages that the server sends every time. And finally, send a message to the server to get all the
+properties that it has.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><em>_error=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.disconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect from the server and show an error message if this disconnection is due to an error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>_error</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Text of the error, defaults to None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.downloadImage">
+<code class="descname">downloadImage</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.downloadImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.downloadImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>We create a URL with the path in the parameter, the IP of the host, and the port. Later, we check if the downloaded path exists,
+and if it doesn’t exist, we create it. Then we save the image file on the client device and show the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Path of the image file in the server.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.enableBLOB">
+<code class="descname">enableBLOB</code><span class="sig-paren">(</span><em>device</em>, <em>property=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.enableBLOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.enableBLOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to <em>URL</em>,
+since this value is <em>NEVER</em> by default.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device where the property is.</li>
+<li><strong>property</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Property that will have enabled or disabled the BLOB, defaults to None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.isConnected">
+<code class="descname">isConnected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.isConnected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.isConnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if server is connected.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if server is connected.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.is_socket_closed">
+<code class="descname">is_socket_closed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.is_socket_closed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.is_socket_closed" title="Permalink to this definition">¶</a></dt>
+<dd><p>In this function check if the socket is closed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if socket is closed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConection.sendGetProperties">
+<code class="descname">sendGetProperties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConection.sendGetProperties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConection.sendGetProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to get all the things that the server has. The server sends everything in a message and this is read by
+the _readerFunction, and with this we can complete our client with all devices, properties, elements, etc.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="INDIGOProperty.html" class="btn btn-neutral float-left" title="INDIGOProperty" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ClientConection.html" class="btn btn-neutral float-right" title="ClientConection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Santiago Gil Legaza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

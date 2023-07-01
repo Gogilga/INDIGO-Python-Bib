@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDIGO_Client_Example &mdash; INDIGO Python  documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> INDIGO Python
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">INDIGO_Client:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGODevice.html">INDIGODevice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGOElement.html">INDIGOElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGOProperty.html">INDIGOProperty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGOServerConection.html">INDIGOServerConection</a></li>
+</ul>
+<p class="caption"><span class="caption-text">INDIGO_Client_Example</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ClientConection.html">ClientConection</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">INDIGO Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">INDIGO_Client_Example</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for INDIGO_Client_Example</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">INDIGO_Client</span>
+<span class="kn">from</span> <span class="nn">INDIGO_Client</span> <span class="k">import</span> <span class="n">INDIGOServerConection</span>
+<span class="kn">from</span> <span class="nn">colorama</span> <span class="k">import</span> <span class="n">Back</span><span class="p">,</span> <span class="n">Fore</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="k">import</span> <span class="n">tabulate</span>
+<span class="n">tabulate</span><span class="o">.</span><span class="n">PRESERVE_WHITESPACE</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="conection"><a class="viewcode-back" href="../ClientConection.html#INDIGO_Client_Example.conection">[docs]</a><span class="k">def</span> <span class="nf">conection</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This is a listener that is called if we lose the connection with the server. It shows a message for this reason and stops the </span>
+<span class="sd">    execution of the program.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n\t\t</span><span class="s2">We lost the connection with server</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="p">)</span>
+
+    <span class="c1"># Send a signal of CONTROL-C to end the execution of the program</span>
+    <span class="n">p</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="connected"><a class="viewcode-back" href="../ClientConection.html#INDIGO_Client_Example.connected">[docs]</a><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;In this function, we add a listener to display a message when the device in question is switched on or off.</span>
+
+<span class="sd">    :param property: A property to include the listener.</span>
+<span class="sd">    :type property: INDIGOProperty</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is connected&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is disconnected&quot;</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;ALT_POLAR_ERROR&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The ALT_POLAR_ERROR of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is greater than 0.&quot;</span><span class="p">)</span>
+    <span class="c1">#print(property)</span>
+
+
+<span class="c1"># Now we run the main code to execute the program</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;172.30.124.160&quot;</span>  <span class="c1"># Hostname or IP of the server, you must enter your host IP address</span>
+    <span class="c1">#host = &quot;172.27.212.177&quot;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">7624</span>         <span class="c1"># Default port of INDIGO is 7624</span>
+
+    <span class="c1"># Create a instance of INDIGOServerConection</span>
+    <span class="n">serverConection</span><span class="o">=</span> <span class="n">INDIGOServerConection</span><span class="p">(</span><span class="s2">&quot;Server1&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+    <span class="c1"># Create the connection</span>
+    <span class="n">serverConection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+    <span class="c1"># Add some listeners</span>
+    <span class="n">serverConection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="s1">&#39;CCD Guider Simulator&#39;</span><span class="p">,</span><span class="s1">&#39;SIMULATION_SETUP&#39;</span><span class="p">,</span><span class="n">temperature</span><span class="p">)</span>
+
+    <span class="n">serverConection</span><span class="o">.</span><span class="n">addServerListener</span><span class="p">(</span><span class="n">conection</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
+            <span class="n">serverConection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">,</span><span class="n">connected</span><span class="p">)</span>
+
+
+    <span class="c1"># We see if connection is successful</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the server connected: &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">serverConection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">serverConection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">()):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="n">listDevices</span><span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
+
+            <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+                <span class="c1"># Put green color in On devices</span>
+                <span class="n">isON</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">isON</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
+                    <span class="n">device</span><span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="o">+</span> <span class="n">device</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
+
+            <span class="n">listDevices</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">device</span><span class="p">])</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">listDevices</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Devices&#39;</span><span class="p">],</span> <span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a device for view its properties: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
+            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a device for view its properties: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Let&#39;s remove the characters to the color for have only the name of device</span>
+        <span class="n">device</span><span class="o">=</span> <span class="n">listDevices</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="ow">in</span> <span class="n">device</span><span class="p">:</span>
+            <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+
+        <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;listProperties= []</span>
+<span class="sd">        for property in deviceChosen.getProperties():</span>
+<span class="sd">            listProperties.append([property])</span>
+<span class="sd">            #deviceChosen.getPropertyByName(property).getLight()</span>
+<span class="sd">            print(deviceChosen.getPropertyByName(property).getMessage())</span>
+<span class="sd">            print(deviceChosen.getPropertyByName(property).getGroup())</span>
+
+<span class="sd">        print(&quot;\n&quot; + tabulate(listProperties, headers=[f&#39;Properties of {device}&#39;], showindex= True, tablefmt=&#39;rounded_outline&#39;, numalign=&quot;right&quot;))&quot;&quot;&quot;</span>
+
+        <span class="n">listProperties</span><span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="nb">property</span> <span class="ow">in</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+            <span class="n">group</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span><span class="o">.</span><span class="n">getGroup</span><span class="p">()</span>
+
+            <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="nb">property</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+            <span class="n">isON</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">isON</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
+                <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;BLOB&quot;</span><span class="p">,</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">])</span>
+        
+        
+        <span class="n">listProperties</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">listProperties</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Properties of </span><span class="si">{device}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
+            <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
+            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+        <span class="nb">property</span><span class="o">=</span> <span class="n">listProperties</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">property</span> <span class="o">==</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">:</span>
+            <span class="n">serverConection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">propertyChosen</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span>
+            <span class="n">propertyType</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getPropertyType</span><span class="p">()</span>
+            <span class="n">propertyRule</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getRule</span><span class="p">()</span>
+            <span class="c1">#propertyPath= propertyChosen.getPath()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type of property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyType</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rule property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyRule</span><span class="p">))</span>
+            <span class="c1">#print(&quot;Image path: &quot; + str(propertyPath))</span>
+            
+            <span class="n">listElements</span><span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span>  <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElements</span><span class="p">():</span>
+                <span class="n">elementChosen</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElements</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">:</span>
+                    <span class="n">listElements</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">element</span><span class="p">,</span> <span class="n">elementChosen</span><span class="o">.</span><span class="n">getPath</span><span class="p">()])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">listElements</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">element</span><span class="p">,</span> <span class="n">elementChosen</span><span class="o">.</span><span class="n">getValue</span><span class="p">()])</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">listElements</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="s1">&#39;Elements of </span><span class="si">{property}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="s1">&#39;Value&#39;</span><span class="p">]</span> <span class="p">,</span><span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a element for view its attributes: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
+                <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a element for view its attributes: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+            <span class="n">element</span><span class="o">=</span> <span class="n">listElements</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">elementChosen</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+            <span class="c1">#print(elementChosen.getPath())</span>
+
+            <span class="c1"># Pass the list of elements to a dicctionary</span>
+            <span class="n">d</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">listElements</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">propertyType</span> <span class="o">==</span> <span class="s2">&quot;Switch&quot;</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Off&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">=</span> <span class="s2">&quot;On&quot;</span>
+
+            <span class="k">if</span> <span class="n">propertyType</span> <span class="o">==</span> <span class="s2">&quot;Number&quot;</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a new value for &quot;</span> <span class="o">+</span> <span class="n">element</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span>
+
+            <span class="k">if</span> <span class="n">propertyType</span> <span class="o">==</span> <span class="s2">&quot;Text&quot;</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type new text for &quot;</span> <span class="o">+</span> <span class="n">element</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="n">propertyChosen</span><span class="o">.</span><span class="n">sendValues</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="c1">#propertyChosen.sendValues({&quot;TRACE&quot;:&quot;On&quot;, &quot;ERROR&quot;:&quot;On&quot;})</span>
+
+    <span class="n">serverConection</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Santiago Gil Legaza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
