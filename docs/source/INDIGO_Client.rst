@@ -33,3 +33,6 @@ INDIGOServerConnection
 .. autoclass:: INDIGO_Client.INDIGOServerConnection
    :members:
    :private-members:
+
+
+You can see and download the source code `here <https://github.com/Gogilga/INDIGO-Python-Bib/blob/main/project/INDIGO_Client.py>`_.

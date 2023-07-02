@@ -2,7 +2,7 @@
 Demo
 ####
 
-Here, let's see a tiny demo on how to use the INDIGO client library.
+Here, let’s see a tiny demo to show how to use the INDIGO client library.
 
 Primarily, we have a function that will serve as a listener for a property. This shows a message when one is turned on.
 
@@ -96,3 +96,6 @@ Now we turn off the device and disconnect the client from the server.
     devices[0].getPropertyByName('CONNECTION').sendValues({"DINCONNECTED":"On"})
 
     serverConnection.disconnect()
+
+
+You can see and download the source code `here <https://github.com/Gogilga/INDIGO-Python-Bib/blob/main/project/demo.py>`_.

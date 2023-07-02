@@ -1,6 +1,0 @@
-####
-Code
-####
-
-.. literalinclude:: ../../project/INDIGO_Client.py
-   :language: Python

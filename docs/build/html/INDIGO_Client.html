@@ -194,7 +194,6 @@
 <li><strong>attributes</strong> – List of all attributes that the current property has.</li>
 <li><strong>elements</strong> – List of all elements that are part of the current property.</li>
 <li><strong>lastUpdate</strong> – It’s a variable that indicates the last time the property was updated.</li>
-<li><strong>blobMode</strong> – It indicate if the BLOB mode is <em>Never</em> or <em>URL</em>.</li>
 </ul>
 </td>
 </tr>
@@ -252,6 +251,10 @@ in case they are wrong.</p>
 <li><a class="reference external" href="https://docs.python.org/3/library/_thread.html#module-_thread" title="(in Python v3.11)"><strong>_thread</strong></a> – This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.</li>
 <li><strong>devices</strong> – A list of all devices of the server.</li>
 <li><strong>wait</strong> – Set a time to wait to execute some functions.</li>
+<li><strong>blobMode</strong> – It indicate if the BLOB mode is <em>Never</em> or <em>URL</em>.</li>
+<li><strong>propertyListeners</strong> – List of listeners for properties.</li>
+<li><strong>messageListeners</strong> – List of listeners for messages.</li>
+<li><strong>serverListener</strong> – List of listeners for the server.</li>
 </ul>
 </td>
 </tr>
@@ -398,7 +401,7 @@ and if it doesn’t exist, we create it. Then we save the image file on the clie
 
 <dl class="method">
 <dt id="INDIGO_Client.INDIGOServerConnection.enableBLOB">
-<code class="descname">enableBLOB</code><span class="sig-paren">(</span><em>device</em>, <em>property=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.enableBLOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.enableBLOB" title="Permalink to this definition">¶</a></dt>
+<code class="descname">enableBLOB</code><span class="sig-paren">(</span><em>device</em>, <em>property</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.enableBLOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.enableBLOB" title="Permalink to this definition">¶</a></dt>
 <dd><p>To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to <em>URL</em>,
 since this value is <em>NEVER</em> by default.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -407,7 +410,7 @@ since this value is <em>NEVER</em> by default.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device where the property is.</li>
-<li><strong>property</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>optional</em>) – Property that will have enabled or disabled the BLOB, defaults to None</li>
+<li><strong>property</strong> (<em>str.</em>) – Property that will have enabled or disabled the BLOB.</li>
 </ul>
 </td>
 </tr>
@@ -498,6 +501,7 @@ the _readerFunction, and with this we can complete our client with all devices, 
 
 </dd></dl>
 
+<p>You can see and download the source code <a class="reference external" href="https://github.com/Gogilga/INDIGO-Python-Bib/blob/main/project/INDIGO_Client.py">here</a>.</p>
 </div>
 </div>
 

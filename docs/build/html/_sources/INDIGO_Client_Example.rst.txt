@@ -7,3 +7,5 @@ Here, you can see the functions that take part in the example of a client of IND
 .. automodule:: INDIGO_Client_Example
    :members: 
    :private-members:
+
+You can see and download the source code `here <https://github.com/Gogilga/INDIGO-Python-Bib/blob/main/project/INDIGO_Client_Example.py>`_.
