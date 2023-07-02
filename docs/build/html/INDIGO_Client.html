@@ -401,21 +401,9 @@ and if it doesn’t exist, we create it. Then we save the image file on the clie
 
 <dl class="method">
 <dt id="INDIGO_Client.INDIGOServerConnection.enableBLOB">
-<code class="descname">enableBLOB</code><span class="sig-paren">(</span><em>device</em>, <em>property</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.enableBLOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.enableBLOB" title="Permalink to this definition">¶</a></dt>
+<code class="descname">enableBLOB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.enableBLOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.enableBLOB" title="Permalink to this definition">¶</a></dt>
 <dd><p>To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to <em>URL</em>,
 since this value is <em>NEVER</em> by default.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device where the property is.</li>
-<li><strong>property</strong> (<em>str.</em>) – Property that will have enabled or disabled the BLOB.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -487,6 +475,25 @@ since this value is <em>NEVER</em> by default.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if socket is closed.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConnection.sendBLOBMessage">
+<code class="descname">sendBLOBMessage</code><span class="sig-paren">(</span><em>device</em>, <em>property</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.sendBLOBMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.sendBLOBMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sends a message to the server to enable the BLOB for a specific property. To do this, the property must be of
+BLOB type. You must call this function if you want to enable BLOB correctly, as the enableBLOB function doesn’t work on its own.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the device where the property is.</li>
+<li><strong>property</strong> (<em>str.</em>) – Name of the property that will have enabled or disabled the BLOB.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>

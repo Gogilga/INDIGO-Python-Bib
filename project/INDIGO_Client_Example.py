@@ -1,6 +1,5 @@
-import INDIGO_Client
 from INDIGO_Client import INDIGOServerConnection
-from colorama import Back, Fore
+from colorama import Fore
 import os
 import signal
 import time
@@ -71,6 +70,7 @@ def program():
 
             listDevices.append([device])
             
+        listDevices.append(["Enable BLOB"])
 
         print(tabulate(listDevices, headers=['Devices'], showindex= True, tablefmt='rounded_outline', numalign="right"))
 
@@ -89,57 +89,45 @@ def program():
             device= device.replace(Fore.GREEN, '')
             device= device.replace(Fore.RESET, '')
 
-
-        deviceChosen= serverConnection.getDeviceByName(device)
-
-        """listProperties= []
-        for property in deviceChosen.getProperties():
-            listProperties.append([property])
-            #deviceChosen.getPropertyByName(property).getLight()
-            print(deviceChosen.getPropertyByName(property).getMessage())
-            print(deviceChosen.getPropertyByName(property).getGroup())
-
-        print("\n" + tabulate(listProperties, headers=[f'Properties of {device}'], showindex= True, tablefmt='rounded_outline', numalign="right"))"""
-
-        listProperties= []
-        for property in deviceChosen.getProperties():
-            group= deviceChosen.getPropertyByName(property).getGroup()
-
-            listProperties.append([group, property])
-
-        if 'CONNECTION' in serverConnection.getDeviceByName(device).getProperties():
-            isON= serverConnection.getDeviceByName(device).getPropertyByName('CONNECTION').getElementByName('CONNECTED').getValue()
-            if isON == 'On':
-                listProperties.append(["BLOB", "Enable BLOB"])
-        
-        
-        listProperties.sort()
-
-        print("\n" + tabulate(listProperties, headers=['Group', f'Properties of {device}'], showindex= True, tablefmt='rounded_outline', numalign="right"))
-
-        try:
-            chose= int(input("\nChoose a property for view its elements: ") or "0")
-        except KeyboardInterrupt:
-            #print("Has pulsed Ctrl+c for end the execute")
-            break
-        except ValueError:
-            print("That's not int")
-            chose= int(input("\nChoose a property for view its elements: ") or "0")
-
-        property= listProperties[chose][1]
-
-        if property == "Enable BLOB":
-            serverConnection.enableBLOB(device,'CCD_IMAGE')
+        if device == "Enable BLOB":
+            serverConnection.enableBLOB()
         else:
+            deviceChosen= serverConnection.getDeviceByName(device)
+
+        
+            listProperties= []
+            for property in deviceChosen.getProperties():
+                group= deviceChosen.getPropertyByName(property).getGroup()
+
+                # Call a function to send a message to the server to put the BLOB to URL if it is activated.
+                serverConnection.sendBLOBMessage(device, property)
+
+                listProperties.append([group, property])
+            
+            
+            listProperties.sort()
+
+            print("\n" + tabulate(listProperties, headers=['Group', f'Properties of {device}'], showindex= True, tablefmt='rounded_outline', numalign="right"))
+
+            try:
+                chose= int(input("\nChoose a property for view its elements: ") or "0")
+            except KeyboardInterrupt:
+                #print("Has pulsed Ctrl+c for end the execute")
+                break
+            except ValueError:
+                print("That's not int")
+                chose= int(input("\nChoose a property for view its elements: ") or "0")
+
+            property= listProperties[chose][1]
+
             propertyChosen= deviceChosen.getPropertyByName(property)
             propertyType= propertyChosen.getPropertyType()
             propertyRule= propertyChosen.getRule()
-            #propertyPath= propertyChosen.getPath()
 
             print("\nType of property " + str(propertyType))
             print("Rule property " + str(propertyRule))
-            #print("Image path: " + str(propertyPath))
-            
+                #print("Image path: " + str(propertyPath))
+                
             listElements= []
             for element in  propertyChosen.getElements():
                 elementChosen= propertyChosen.getElements().get(element)
@@ -153,7 +141,7 @@ def program():
             try:
                 chose= int(input("\nChoose a element for view its attributes: ") or "0")
             except KeyboardInterrupt:
-                #print("Has pulsed Ctrl+c for end the execute")
+                    #print("Has pulsed Ctrl+c for end the execute")
                 break
             except ValueError:
                 print("That's not int")

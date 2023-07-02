@@ -542,14 +542,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">propertyListeners</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listener</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="INDIGOServerConnection.enableBLOB"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.enableBLOB">[docs]</a>    <span class="k">def</span> <span class="nf">enableBLOB</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOServerConnection.enableBLOB"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.enableBLOB">[docs]</a>    <span class="k">def</span> <span class="nf">enableBLOB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to *URL*, </span>
 <span class="sd">        since this value is *NEVER* by default.</span>
-
-<span class="sd">        :param device: Name of the device where the property is.</span>
-<span class="sd">        :type device: str</span>
-<span class="sd">        :param property: Property that will have enabled or disabled the BLOB.</span>
-<span class="sd">        :type property: str.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="c1">#CCD Imager Simulator       CCD_IMAGE</span>
         <span class="n">blob</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span>
@@ -557,13 +552,26 @@
         <span class="k">if</span> <span class="n">blob</span> <span class="o">==</span> <span class="s2">&quot;NEVER&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span><span class="o">=</span> <span class="s2">&quot;URL&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span><span class="o">=</span> <span class="s2">&quot;NEVER&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span><span class="o">=</span> <span class="s2">&quot;NEVER&quot;</span></div>
 
-        <span class="n">message</span><span class="o">=</span> <span class="n">f</span><span class="s2">&quot;&lt;enableBLOB device=&#39;</span><span class="si">{device}</span><span class="s2">&#39; name=&#39;</span><span class="si">{property}</span><span class="s2">&#39;&gt;</span><span class="si">{self.blobMode}</span><span class="s2">&lt;/enableBLOB&gt;&quot;</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<div class="viewcode-block" id="INDIGOServerConnection.sendBLOBMessage"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.sendBLOBMessage">[docs]</a>    <span class="k">def</span> <span class="nf">sendBLOBMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This function sends a message to the server to enable the BLOB for a specific property. To do this, the property must be of </span>
+<span class="sd">        BLOB type. You must call this function if you want to enable BLOB correctly, as the enableBLOB function doesn&#39;t work on its own.</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+<span class="sd">        :param device: Name of the device where the property is.</span>
+<span class="sd">        :type device: str</span>
+<span class="sd">        :param property: Name of the property that will have enabled or disabled the BLOB.</span>
+<span class="sd">        :type property: str.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span> <span class="o">==</span> <span class="s2">&quot;URL&quot;</span><span class="p">:</span>
+            <span class="n">prop</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prop</span><span class="o">.</span><span class="n">getPropertyType</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;BLOB&quot;</span><span class="p">:</span>
+                <span class="n">message</span><span class="o">=</span> <span class="n">f</span><span class="s2">&quot;&lt;enableBLOB device=&#39;</span><span class="si">{device}</span><span class="s2">&#39; name=&#39;</span><span class="si">{property}</span><span class="s2">&#39;&gt;</span><span class="si">{self.blobMode}</span><span class="s2">&lt;/enableBLOB&gt;&quot;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">getBLOBmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span>

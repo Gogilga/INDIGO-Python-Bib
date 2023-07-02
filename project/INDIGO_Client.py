@@ -473,14 +473,9 @@ class INDIGOServerConnection:
 
         self.propertyListeners[name].append(listener)
 
-    def enableBLOB(self, device, property):
+    def enableBLOB(self):
         """To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to *URL*, 
         since this value is *NEVER* by default.
-
-        :param device: Name of the device where the property is.
-        :type device: str
-        :param property: Property that will have enabled or disabled the BLOB.
-        :type property: str.
         """        
         #CCD Imager Simulator       CCD_IMAGE
         blob= self.blobMode
@@ -490,11 +485,24 @@ class INDIGOServerConnection:
         else:
             self.blobMode= "NEVER"
 
-        message= f"<enableBLOB device='{device}' name='{property}'>{self.blobMode}</enableBLOB>"
 
-        print(message)
+    def sendBLOBMessage(self, device, property):
+        """This function sends a message to the server to enable the BLOB for a specific property. To do this, the property must be of 
+        BLOB type. You must call this function if you want to enable BLOB correctly, as the enableBLOB function doesn't work on its own.
 
-        self._send(message)
+        :param device: Name of the device where the property is.
+        :type device: str
+        :param property: Name of the property that will have enabled or disabled the BLOB.
+        :type property: str.
+        """
+        if self.blobMode == "URL":
+            prop= self.getPropertyByName(device, property)
+            if prop.getPropertyType() == "BLOB":
+                message= f"<enableBLOB device='{device}' name='{property}'>{self.blobMode}</enableBLOB>"
+
+                print(message)
+
+                self._send(message)
 
     def getBLOBmode(self):
         return self.blobMode

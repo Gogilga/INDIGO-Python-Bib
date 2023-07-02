@@ -140,6 +140,7 @@
 
             <span class="n">listDevices</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">device</span><span class="p">])</span>
             
+        <span class="n">listDevices</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;Enable BLOB&quot;</span><span class="p">])</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">listDevices</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Devices&#39;</span><span class="p">],</span> <span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
 
@@ -158,57 +159,46 @@
             <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
             <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-
-        <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-
-        <span class="sd">&quot;&quot;&quot;listProperties= []</span>
-<span class="sd">        for property in deviceChosen.getProperties():</span>
-<span class="sd">            listProperties.append([property])</span>
-<span class="sd">            #deviceChosen.getPropertyByName(property).getLight()</span>
-<span class="sd">            print(deviceChosen.getPropertyByName(property).getMessage())</span>
-<span class="sd">            print(deviceChosen.getPropertyByName(property).getGroup())</span>
-
-<span class="sd">        print(&quot;\n&quot; + tabulate(listProperties, headers=[f&#39;Properties of {device}&#39;], showindex= True, tablefmt=&#39;rounded_outline&#39;, numalign=&quot;right&quot;))&quot;&quot;&quot;</span>
-
-        <span class="n">listProperties</span><span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="nb">property</span> <span class="ow">in</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
-            <span class="n">group</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span><span class="o">.</span><span class="n">getGroup</span><span class="p">()</span>
-
-            <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="nb">property</span><span class="p">])</span>
-
-        <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
-            <span class="n">isON</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">isON</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
-                <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;BLOB&quot;</span><span class="p">,</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">])</span>
-        
-        
-        <span class="n">listProperties</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">listProperties</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Properties of </span><span class="si">{device}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-            <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
-            <span class="k">break</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
-            <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
-
-        <span class="nb">property</span><span class="o">=</span> <span class="n">listProperties</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="nb">property</span> <span class="o">==</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">:</span>
-            <span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">device</span> <span class="o">==</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">:</span>
+            <span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        
+            <span class="n">listProperties</span><span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="nb">property</span> <span class="ow">in</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+                <span class="n">group</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span><span class="o">.</span><span class="n">getGroup</span><span class="p">()</span>
+
+                <span class="c1"># Call a function to send a message to the server to put the BLOB to URL if it is activated.</span>
+                <span class="n">serverConnection</span><span class="o">.</span><span class="n">sendBLOBMessage</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+
+                <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="nb">property</span><span class="p">])</span>
+                
+            
+            
+            <span class="n">listProperties</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">tabulate</span><span class="p">(</span><span class="n">listProperties</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Properties of </span><span class="si">{device}</span><span class="s1">&#39;</span><span class="p">],</span> <span class="n">showindex</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;rounded_outline&#39;</span><span class="p">,</span> <span class="n">numalign</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">))</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
+                <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a property for view its elements: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+            <span class="nb">property</span><span class="o">=</span> <span class="n">listProperties</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
             <span class="n">propertyChosen</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span>
             <span class="n">propertyType</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getPropertyType</span><span class="p">()</span>
             <span class="n">propertyRule</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getRule</span><span class="p">()</span>
-            <span class="c1">#propertyPath= propertyChosen.getPath()</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type of property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyType</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rule property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyRule</span><span class="p">))</span>
-            <span class="c1">#print(&quot;Image path: &quot; + str(propertyPath))</span>
-            
+                <span class="c1">#print(&quot;Image path: &quot; + str(propertyPath))</span>
+                
             <span class="n">listElements</span><span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span>  <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElements</span><span class="p">():</span>
                 <span class="n">elementChosen</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElements</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
@@ -222,7 +212,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">chose</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Choose a element for view its attributes: &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-                <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
+                    <span class="c1">#print(&quot;Has pulsed Ctrl+c for end the execute&quot;)</span>
                 <span class="k">break</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;That&#39;s not int&quot;</span><span class="p">)</span>
