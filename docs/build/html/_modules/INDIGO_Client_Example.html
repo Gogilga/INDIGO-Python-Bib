@@ -36,16 +36,10 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">INDIGO_Client:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../INDIGODevice.html">INDIGODevice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../INDIGOElement.html">INDIGOElement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../INDIGOProperty.html">INDIGOProperty</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../INDIGOServerConection.html">INDIGOServerConection</a></li>
-</ul>
-<p class="caption"><span class="caption-text">INDIGO_Client_Example</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../ClientConection.html">ClientConection</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGO_Client.html">1. INDIGO_Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../INDIGO_Client_Example.html">2. INDIGO_Client_Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Demo.html">3. Demo</a></li>
 </ul>
 
         </div>
@@ -74,7 +68,7 @@
              
   <h1>Source code for INDIGO_Client_Example</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">INDIGO_Client</span>
-<span class="kn">from</span> <span class="nn">INDIGO_Client</span> <span class="k">import</span> <span class="n">INDIGOServerConection</span>
+<span class="kn">from</span> <span class="nn">INDIGO_Client</span> <span class="k">import</span> <span class="n">INDIGOServerConnection</span>
 <span class="kn">from</span> <span class="nn">colorama</span> <span class="k">import</span> <span class="n">Back</span><span class="p">,</span> <span class="n">Fore</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">signal</span>
@@ -82,7 +76,7 @@
 <span class="kn">from</span> <span class="nn">tabulate</span> <span class="k">import</span> <span class="n">tabulate</span>
 <span class="n">tabulate</span><span class="o">.</span><span class="n">PRESERVE_WHITESPACE</span> <span class="o">=</span> <span class="kc">True</span>
 
-<div class="viewcode-block" id="conection"><a class="viewcode-back" href="../ClientConection.html#INDIGO_Client_Example.conection">[docs]</a><span class="k">def</span> <span class="nf">conection</span><span class="p">():</span>
+<div class="viewcode-block" id="connection"><a class="viewcode-back" href="../INDIGO_Client_Example.html#INDIGO_Client_Example.connection">[docs]</a><span class="k">def</span> <span class="nf">connection</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;This is a listener that is called if we lose the connection with the server. It shows a message for this reason and stops the </span>
 <span class="sd">    execution of the program.</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
@@ -92,7 +86,7 @@
     <span class="n">p</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
     <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="connected"><a class="viewcode-back" href="../ClientConection.html#INDIGO_Client_Example.connected">[docs]</a><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
+<div class="viewcode-block" id="connected"><a class="viewcode-back" href="../INDIGO_Client_Example.html#INDIGO_Client_Example.connected">[docs]</a><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;In this function, we add a listener to display a message when the device in question is switched on or off.</span>
 
 <span class="sd">    :param property: A property to include the listener.</span>
@@ -103,48 +97,44 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is disconnected&quot;</span><span class="p">)</span></div>
 
-<span class="k">def</span> <span class="nf">temperature</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;ALT_POLAR_ERROR&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The ALT_POLAR_ERROR of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is greater than 0.&quot;</span><span class="p">)</span>
-    <span class="c1">#print(property)</span>
 
-
-<span class="c1"># Now we run the main code to execute the program</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<div class="viewcode-block" id="program"><a class="viewcode-back" href="../INDIGO_Client_Example.html#INDIGO_Client_Example.program">[docs]</a><span class="k">def</span> <span class="nf">program</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This is the main part of the code. Here, there is an implementation of a small client to connect to an INDIGO server.</span>
+<span class="sd">    First of all, you must enter a host IP address and port to connect. Lately, a small menu is displayed and you can navigate </span>
+<span class="sd">    it by typing the number of the option you want to select.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
     <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;172.30.124.160&quot;</span>  <span class="c1"># Hostname or IP of the server, you must enter your host IP address</span>
     <span class="c1">#host = &quot;172.27.212.177&quot;</span>
     <span class="n">port</span> <span class="o">=</span> <span class="mi">7624</span>         <span class="c1"># Default port of INDIGO is 7624</span>
 
-    <span class="c1"># Create a instance of INDIGOServerConection</span>
-    <span class="n">serverConection</span><span class="o">=</span> <span class="n">INDIGOServerConection</span><span class="p">(</span><span class="s2">&quot;Server1&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+    <span class="c1"># Create a instance of INDIGOServerConnection</span>
+    <span class="n">serverConnection</span><span class="o">=</span> <span class="n">INDIGOServerConnection</span><span class="p">(</span><span class="s2">&quot;Server1&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> 
 
     <span class="c1"># Create the connection</span>
-    <span class="n">serverConection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="n">serverConnection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
 
     <span class="c1"># Add some listeners</span>
-    <span class="n">serverConection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="s1">&#39;CCD Guider Simulator&#39;</span><span class="p">,</span><span class="s1">&#39;SIMULATION_SETUP&#39;</span><span class="p">,</span><span class="n">temperature</span><span class="p">)</span>
+    <span class="n">serverConnection</span><span class="o">.</span><span class="n">addServerListener</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
 
-    <span class="n">serverConection</span><span class="o">.</span><span class="n">addServerListener</span><span class="p">(</span><span class="n">conection</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
-            <span class="n">serverConection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">,</span><span class="n">connected</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
+            <span class="n">serverConnection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">,</span><span class="n">connected</span><span class="p">)</span>
 
 
     <span class="c1"># We see if connection is successful</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the server connected: &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">serverConection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is the server connected: &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">serverConnection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">while</span><span class="p">(</span><span class="n">serverConection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">()):</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">serverConnection</span><span class="o">.</span><span class="n">isConnected</span><span class="p">()):</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
         <span class="n">listDevices</span><span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">():</span>
 
-            <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
                 <span class="c1"># Put green color in On devices</span>
-                <span class="n">isON</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+                <span class="n">isON</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">isON</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
                     <span class="n">device</span><span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span> <span class="o">+</span> <span class="n">device</span> <span class="o">+</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
 
@@ -168,7 +158,7 @@
             <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 
-        <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
         <span class="sd">&quot;&quot;&quot;listProperties= []</span>
 <span class="sd">        for property in deviceChosen.getProperties():</span>
@@ -185,8 +175,8 @@
 
             <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="nb">property</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
-            <span class="n">isON</span><span class="o">=</span> <span class="n">serverConection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+            <span class="n">isON</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">isON</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">:</span>
                 <span class="n">listProperties</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;BLOB&quot;</span><span class="p">,</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">])</span>
         
@@ -207,7 +197,7 @@
         <span class="nb">property</span><span class="o">=</span> <span class="n">listProperties</span><span class="p">[</span><span class="n">chose</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">property</span> <span class="o">==</span> <span class="s2">&quot;Enable BLOB&quot;</span><span class="p">:</span>
-            <span class="n">serverConection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
+            <span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">device</span><span class="p">,</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">propertyChosen</span><span class="o">=</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="nb">property</span><span class="p">)</span>
             <span class="n">propertyType</span><span class="o">=</span> <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getPropertyType</span><span class="p">()</span>
@@ -246,6 +236,7 @@
             <span class="n">d</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">listElements</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">propertyType</span> <span class="o">==</span> <span class="s2">&quot;Switch&quot;</span><span class="p">:</span>
+                <span class="c1"># Put all the elements to Off.</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Off&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">=</span> <span class="s2">&quot;On&quot;</span>
 
@@ -258,7 +249,12 @@
             <span class="n">propertyChosen</span><span class="o">.</span><span class="n">sendValues</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
             <span class="c1">#propertyChosen.sendValues({&quot;TRACE&quot;:&quot;On&quot;, &quot;ERROR&quot;:&quot;On&quot;})</span>
 
-    <span class="n">serverConection</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+    <span class="n">serverConnection</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+
+<span class="c1"># Now we run the main code to execute the program</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">program</span><span class="p">()</span>
 </pre></div>
 
            </div>

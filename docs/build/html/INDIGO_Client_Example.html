@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClientConection &mdash; INDIGO Python  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>2. INDIGO_Client_Example &mdash; INDIGO Python  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -16,7 +16,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="INDIGOServerConection" href="INDIGOServerConection.html" /> 
+    <link rel="next" title="3. Demo" href="Demo.html" />
+    <link rel="prev" title="1. INDIGO_Client" href="INDIGO_Client.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,16 +38,10 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">INDIGO_Client:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="INDIGODevice.html">INDIGODevice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="INDIGOElement.html">INDIGOElement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="INDIGOProperty.html">INDIGOProperty</a></li>
-<li class="toctree-l1"><a class="reference internal" href="INDIGOServerConection.html">INDIGOServerConection</a></li>
-</ul>
-<p class="caption"><span class="caption-text">INDIGO_Client_Example</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ClientConection</a></li>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="INDIGO_Client.html">1. INDIGO_Client</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. INDIGO_Client_Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Demo.html">3. Demo</a></li>
 </ul>
 
         </div>
@@ -63,9 +58,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">ClientConection</li>
+      <li class="breadcrumb-item active">2. INDIGO_Client_Example</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/ClientConection.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/INDIGO_Client_Example.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -73,32 +68,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-INDIGO_Client_Example">
-<span id="clientconection"></span><h1>ClientConection<a class="headerlink" href="#module-INDIGO_Client_Example" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="INDIGO_Client_Example.conection">
-<code class="descclassname">INDIGO_Client_Example.</code><code class="descname">conection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#conection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.conection" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a listener that is called if we lose the connection with the server. It shows a message for this reason and stops the
-execution of the program.</p>
-</dd></dl>
-
-<dl class="function">
+  <div class="section" id="indigo-client-example">
+<h1>2. INDIGO_Client_Example<a class="headerlink" href="#indigo-client-example" title="Permalink to this headline">¶</a></h1>
+<p>Here, you can see the functions that take part in the example of a client of INDIGO.</p>
+<span class="target" id="module-INDIGO_Client_Example"></span><dl class="function">
 <dt id="INDIGO_Client_Example.connected">
-<code class="descclassname">INDIGO_Client_Example.</code><code class="descname">connected</code><span class="sig-paren">(</span><em>property</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.connected" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connected</code><span class="sig-paren">(</span><em>property</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#connected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.connected" title="Permalink to this definition">¶</a></dt>
 <dd><p>In this function, we add a listener to display a message when the device in question is switched on or off.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>property</strong> (<a class="reference internal" href="INDIGOProperty.html#INDIGO_Client.INDIGOProperty" title="INDIGO_Client.INDIGOProperty"><em>INDIGOProperty</em></a>) – A property to include the listener.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>property</strong> (<a class="reference internal" href="INDIGO_Client.html#INDIGO_Client.INDIGOProperty" title="INDIGO_Client.INDIGOProperty"><em>INDIGOProperty</em></a>) – A property to include the listener.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
+<dt id="INDIGO_Client_Example.connection">
+<code class="descname">connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a listener that is called if we lose the connection with the server. It shows a message for this reason and stops the
+execution of the program.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="INDIGO_Client_Example.program">
-<code class="descclassname">INDIGO_Client_Example.</code><code class="descname">program</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#program"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.program" title="Permalink to this definition">¶</a></dt>
+<code class="descname">program</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client_Example.html#program"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client_Example.program" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the main part of the code. Here, there is an implementation of a small client to connect to an INDIGO server.
 First of all, you must enter a host IP address and port to connect. Lately, a small menu is displayed and you can navigate
 it by typing the number of the option you want to select.</p>
@@ -110,7 +106,8 @@ it by typing the number of the option you want to select.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="INDIGOServerConection.html" class="btn btn-neutral float-left" title="INDIGOServerConection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="INDIGO_Client.html" class="btn btn-neutral float-left" title="1. INDIGO_Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Demo.html" class="btn btn-neutral float-right" title="3. Demo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

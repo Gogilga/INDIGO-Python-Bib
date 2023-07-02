@@ -16,7 +16,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../project'))
 import sys; sys.setrecursionlimit(1500)
-import sphinx_pdj_theme 
 
 
 # -- Project information -----------------------------------------------------
@@ -56,6 +55,8 @@ extensions = [
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+add_module_names = False
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
@@ -88,8 +89,9 @@ pygments_style = None
 #
 #html_theme = 'renku'
 html_theme= 'sphinx_rtd_theme'
+#html_theme = "sphinxawesome_theme"
 #html_theme = 'sphinx_pdj_theme'
-#html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
+#html_theme_path = [sphinxawesome_theme.get_html_theme_path()]
 
 
 # Theme options are theme-specific and customize the look and feel of a theme

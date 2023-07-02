@@ -32,7 +32,7 @@ class INDIGODevice:
         self.properties= {}
 
     def _parseVectorTag(self, tag):
-        """Here we create the new elements by instantiating an INDIGOProperty and calling its _parserVectorTag method.
+        """Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -81,7 +81,6 @@ class INDIGOProperty:
     :ivar attributes: List of all attributes that the current property has.
     :ivar elements: List of all elements that are part of the current property.
     :ivar lastUpdate: It's a variable that indicates the last time the property was updated.
-    :ivar blobMode: It indicate if the BLOB mode is *Never* or *URL*.
     """  
     name= None
     device= None
@@ -89,12 +88,10 @@ class INDIGOProperty:
     attributes= None
     elements= None
     lastUpdate= 0
-    blobMode= None
 
     def __init__(self, tag, device):
         self.device= device
         self.name= tag.attrib['name']
-        self.blobMode= "NEVER"
 
         if ("Text" in tag.tag):
             self.propertyType = "Text"
@@ -111,6 +108,12 @@ class INDIGOProperty:
         self.elements= {}
 
     def _parseVectorTag(self, tag):
+        """Here we create the new properties saving its attributes and its INDIGO elements by instantiating an INDIGOElement and calling 
+        its _parserElementTag method.
+
+        :param tag: Element of the parser of XML message.
+        :type tag: xml.etree.ElementTree.Element
+        """
         self.lastUpdate = time.time()
 
         self.attributes = {**self.attributes, **tag.attrib}     # Merge properties
@@ -120,12 +123,6 @@ class INDIGOProperty:
                 self.elements[elem.attrib['name']] = INDIGOElement(elem, self)
                 
             self.elements[elem.attrib['name']]._parseElementTag(elem)
-
-    def getBlobMode(self):
-        return self.blobMode
-    
-    def setBlobMode(self, mode):
-        self.blobMode= mode
             
     def getGroup(self):
         if ('group' in self.attributes):
@@ -295,7 +292,11 @@ class INDIGOElement:
         self.value = None
         
     def _parseElementTag(self, tag):
-        #print(tag)
+        """Here we create the new elements and save all the attributes and values of the INDIGO elements.
+
+        :param tag: Element of the parser of XML message.
+        :type tag: xml.etree.ElementTree.Element
+        """
         self.attributes = {**self.attributes, **tag.attrib}    # Merge properties
         self.value = tag.text
 
@@ -352,21 +353,31 @@ class INDIGOElement:
         return self.attributes
     
     def setValue(self, value):
+        """Set a new value to the element.
+
+        :param value: New value to set.
+        :type value: float or str
+        """        
         self.value= value
 
 
 
-class INDIGOServerConection:
+class INDIGOServerConnection:
     """This is a class that represents a Server and has all the tools for the connection and management of it.
 
     :ivar name: Name of the server.
-    :ivar _host: IP adress of the server.
+    :ivar _host: IP address of the server.
     :ivar _port: Port for listener of the server. In INDIGO the default port is 7624.
     :ivar _sock: This is a variable that will contain a socket connection to the server.
     :ivar _endReading: Check if the socket has reached the end of reading for the pipeline of the server connection.
     :ivar _thread: This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.
     :ivar devices: A list of all devices of the server.
     :ivar wait: Set a time to wait to execute some functions.
+    :ivar blobMode: It indicate if the BLOB mode is *Never* or *URL*.
+    :ivar propertyListeners: List of listeners for properties.
+    :ivar messageListeners: List of listeners for messages.
+    :ivar serverListener: List of listeners for the server.
+
     """     
     name= None
     _host= None
@@ -376,6 +387,7 @@ class INDIGOServerConection:
     _thread = None
     devices = None
     wait= 0.5
+    blobMode= None
 
     propertyListeners= None
     messageListeners= None
@@ -386,6 +398,7 @@ class INDIGOServerConection:
         self._host= host
         self._port= port
         self._sock= None
+        self.blobMode= "NEVER"
 
         self.devices= {}
         self.propertyListeners= {}
@@ -460,31 +473,42 @@ class INDIGOServerConection:
 
         self.propertyListeners[name].append(listener)
 
-    def enableBLOB(self, device, property= None):
+    def enableBLOB(self, device, property):
         """To take photos and get them, we need to activate the BLOBs on the server. This function changes the value of BLOB to *URL*, 
         since this value is *NEVER* by default.
 
         :param device: Name of the device where the property is.
         :type device: str
-        :param property: Property that will have enabled or disabled the BLOB, defaults to None
-        :type property: str, optional
+        :param property: Property that will have enabled or disabled the BLOB.
+        :type property: str.
         """        
         #CCD Imager Simulator       CCD_IMAGE
-        prop= self.getPropertyByName(device, property)
-        blob= prop.getBlobMode()
+        blob= self.blobMode
 
         if blob == "NEVER":
-            message= f"<enableBLOB device='{device}' name='{property}'>URL</enableBLOB>"
-            prop.setBlobMode("URL")
+            self.blobMode= "URL"
         else:
-            message= f"<enableBLOB device='{device}' name='{property}'>NEVER</enableBLOB>"
-            prop.setBlobMode("NEVER")
+            self.blobMode= "NEVER"
+
+        message= f"<enableBLOB device='{device}' name='{property}'>{self.blobMode}</enableBLOB>"
 
         print(message)
 
         self._send(message)
 
+    def getBLOBmode(self):
+        return self.blobMode
+
     def getPropertyByName(self, deviceName, propertyName):
+        """With this function, we can obtain property objet from the name of a property.
+
+        :param deviceName: Name of the device for which we want to search for the property.
+        :type deviceName: str
+        :param propertyName: Name of the property.
+        :type propertyName: str
+        :return: The objet of the property.
+        :rtype: INDIGOProperty
+        """
         if (deviceName in self.devices):
             d = self.devices[deviceName]
 
@@ -589,6 +613,13 @@ class INDIGOServerConection:
         return self.devices
     
     def getDeviceByName(self, device):
+        """Obtain the device objet from the name of a device.
+
+        :param device: Name of the device.
+        :type device: str
+        :return: The objet of the device.
+        :rtype: INDIGODevice
+        """        
         return self.devices[device]
     
     def getProperties(self, device):

@@ -2,5 +2,5 @@ ClientConection
 ---------------
 
 .. automodule:: INDIGO_Client_Example
-   :members:
+   :members: 
    :private-members:

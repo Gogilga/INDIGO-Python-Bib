@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Demo &mdash; INDIGO Python  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="2. INDIGO_Client_Example" href="INDIGO_Client_Example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> INDIGO Python
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="INDIGO_Client.html">1. INDIGO_Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="INDIGO_Client_Example.html">2. INDIGO_Client_Example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Demo</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">INDIGO Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">3. Demo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Demo.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="demo">
+<h1>3. Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
+<p>Here, let’s see a tiny demo on how to use the INDIGO client library.</p>
+<p>Primarily, we have a function that will serve as a listener for a property. This shows a message when one is turned on.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
+ <span class="k">if</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">):</span>
+     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is connected&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>First of all, we need to make the connection with the server. So we need to provide the IP address and port of the server.</p>
+<p>The default port for INDIGO is 7624.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;172.30.124.160&quot;</span> <span class="c1"># This is an example of IP address</span>
+<span class="n">port</span> <span class="o">=</span> <span class="mi">7624</span>
+</pre></div>
+</div>
+<p>And now we make a connection to the server by instantiating an INDIGOServerConnection and then we create the connection. The parameters are:</p>
+<ul class="simple">
+<li>The name that you want to give to the server.</li>
+<li>Host.</li>
+<li>Port.</li>
+</ul>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">serverConnection</span><span class="o">=</span> <span class="n">INDIGOServerConnection</span><span class="p">(</span><span class="s2">&quot;Server&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+<span class="n">serverConnection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It is recommended to allow some time for the client to read all the data from the server.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have the connection and can make all we want. For example:</p>
+<p>We can add a listener to some devices.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">()</span>
+
+<span class="n">devices</span><span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">deviceName</span><span class="p">,</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">serverConnection</span><span class="o">.</span><span class="n">addPropertyListener</span><span class="p">(</span><span class="n">deviceName</span><span class="p">,</span> <span class="s1">&#39;CONNECTION&#39;</span><span class="p">,</span> <span class="n">connected</span><span class="p">)</span>
+    <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can turn on some device.</p>
+<p>We check if the first device in the list has the CONNECTION property. And if true, we send the element CONNECTED to On.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
+    <span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;CONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>We can enable BLOB obbjets.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can take a photo with the property CCD_EXPOSURE</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_EXPOSURE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;EXPOSURE&quot;</span><span class="p">:</span><span class="s2">&quot;2&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>We must wait for the time that we indicated in the EXPOSURE above.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And now we can see the photo with the property CCD_IMAGE</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;IMAGE&quot;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getPath</span><span class="p">())})</span>
+</pre></div>
+</div>
+<p>The image will be downloaded to a folder named <code class="docutils literal notranslate"><span class="pre">images</span></code> and it will be displayed for viewing.</p>
+<p>Now we turn off the device and disconnect the client from the server.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;DINCONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
+
+<span class="n">serverConnection</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="INDIGO_Client_Example.html" class="btn btn-neutral float-left" title="2. INDIGO_Client_Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Santiago Gil Legaza.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

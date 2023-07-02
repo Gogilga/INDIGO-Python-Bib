@@ -1,5 +1,5 @@
 import INDIGO_Client
-from INDIGO_Client import INDIGOServerConection
+from INDIGO_Client import INDIGOServerConnection
 from colorama import Back, Fore
 import os
 import signal
@@ -7,7 +7,7 @@ import time
 from tabulate import tabulate
 tabulate.PRESERVE_WHITESPACE = True
 
-def conection():
+def connection():
     """This is a listener that is called if we lose the connection with the server. It shows a message for this reason and stops the 
     execution of the program.
     """    
@@ -28,52 +28,49 @@ def connected(property):
     else:
         print("The device " + str(property.getDevice().getName()) + " is disconnected")
 
-def temperature(property):
-    if(int(property.getElementByName('ALT_POLAR_ERROR').getValue()) > 0):
-        print("The ALT_POLAR_ERROR of " + str(property.getDevice().getName()) + " is greater than 0.")
-    #print(property)
 
-
-# Now we run the main code to execute the program
-if __name__ == "__main__":
+def program():
+    """This is the main part of the code. Here, there is an implementation of a small client to connect to an INDIGO server.
+    First of all, you must enter a host IP address and port to connect. Lately, a small menu is displayed and you can navigate 
+    it by typing the number of the option you want to select.
+    """    
     host = "172.30.124.160"  # Hostname or IP of the server, you must enter your host IP address
     #host = "172.27.212.177"
     port = 7624         # Default port of INDIGO is 7624
 
-    # Create a instance of INDIGOServerConection
-    serverConection= INDIGOServerConection("Server1", host, port)
+    # Create a instance of INDIGOServerConnection
+    serverConnection= INDIGOServerConnection("Server1", host, port) 
 
     # Create the connection
-    serverConection.connect()
+    serverConnection.connect()
 
     time.sleep(0.5)
 
 
     # Add some listeners
-    serverConection.addPropertyListener('CCD Guider Simulator','SIMULATION_SETUP',temperature)
+    serverConnection.addServerListener(connection)
 
-    serverConection.addServerListener(conection)
-
-    for device in serverConection.getDevices():
-            serverConection.addPropertyListener(device,'CONNECTION',connected)
+    for device in serverConnection.getDevices():
+            serverConnection.addPropertyListener(device,'CONNECTION',connected)
 
 
     # We see if connection is successful
-    print("Is the server connected: " +  str(serverConection.isConnected()) + "\n\n")
+    print("Is the server connected: " +  str(serverConnection.isConnected()) + "\n\n")
 
-    while(serverConection.isConnected()):
+    while(serverConnection.isConnected()):
         time.sleep(0.5)
 
         listDevices= []
-        for device in serverConection.getDevices():
+        for device in serverConnection.getDevices():
 
-            if 'CONNECTION' in serverConection.getDeviceByName(device).getProperties():
+            if 'CONNECTION' in serverConnection.getDeviceByName(device).getProperties():
                 # Put green color in On devices
-                isON= serverConection.getDeviceByName(device).getPropertyByName('CONNECTION').getElementByName('CONNECTED').getValue()
+                isON= serverConnection.getDeviceByName(device).getPropertyByName('CONNECTION').getElementByName('CONNECTED').getValue()
                 if isON == 'On':
                     device= Fore.GREEN + device + Fore.RESET
 
             listDevices.append([device])
+            
 
         print(tabulate(listDevices, headers=['Devices'], showindex= True, tablefmt='rounded_outline', numalign="right"))
 
@@ -93,7 +90,7 @@ if __name__ == "__main__":
             device= device.replace(Fore.RESET, '')
 
 
-        deviceChosen= serverConection.getDeviceByName(device)
+        deviceChosen= serverConnection.getDeviceByName(device)
 
         """listProperties= []
         for property in deviceChosen.getProperties():
@@ -110,8 +107,8 @@ if __name__ == "__main__":
 
             listProperties.append([group, property])
 
-        if 'CONNECTION' in serverConection.getDeviceByName(device).getProperties():
-            isON= serverConection.getDeviceByName(device).getPropertyByName('CONNECTION').getElementByName('CONNECTED').getValue()
+        if 'CONNECTION' in serverConnection.getDeviceByName(device).getProperties():
+            isON= serverConnection.getDeviceByName(device).getPropertyByName('CONNECTION').getElementByName('CONNECTED').getValue()
             if isON == 'On':
                 listProperties.append(["BLOB", "Enable BLOB"])
         
@@ -132,7 +129,7 @@ if __name__ == "__main__":
         property= listProperties[chose][1]
 
         if property == "Enable BLOB":
-            serverConection.enableBLOB(device,'CCD_IMAGE')
+            serverConnection.enableBLOB(device,'CCD_IMAGE')
         else:
             propertyChosen= deviceChosen.getPropertyByName(property)
             propertyType= propertyChosen.getPropertyType()
@@ -171,6 +168,7 @@ if __name__ == "__main__":
             d= dict(listElements)
 
             if propertyType == "Switch":
+                # Put all the elements to Off.
                 d = {key: "Off" for key, value in d.items()}
                 d[element]= "On"
 
@@ -183,4 +181,9 @@ if __name__ == "__main__":
             propertyChosen.sendValues(d)
             #propertyChosen.sendValues({"TRACE":"On", "ERROR":"On"})
 
-    serverConection.disconnect()
+    serverConnection.disconnect()
+
+
+# Now we run the main code to execute the program
+if __name__ == "__main__":
+    program()
