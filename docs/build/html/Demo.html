@@ -112,10 +112,12 @@
     <span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;CONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
-<p>We can enable BLOB obbjets.</p>
+<p>We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know that is a BLOB property.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
+<span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">()</span>
+
+<span class="n">serverConnection</span><span class="o">.</span><span class="n">sendBLOBMessage</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now we can take a photo with the property CCD_EXPOSURE</p>

@@ -61,13 +61,15 @@ We check if the first device in the list has the CONNECTION property. And if tru
     if 'CONNECTION' in devices[0].getProperties():
         devices[0].getPropertyByName('CONNECTION').sendValues({"CONNECTED":"On"})
 
-We can enable BLOB obbjets.
+We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know that is a BLOB property.
 
 .. code-block:: Python
 
     time.sleep(0.5)
 
-    serverConnection.enableBLOB(devices[0].name, 'CCD_IMAGE')
+    serverConnection.enableBLOB()
+
+    serverConnection.sendBLOBMessage(devices[0].name, 'CCD_IMAGE')
 
 Now we can take a photo with the property CCD_EXPOSURE
 

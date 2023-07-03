@@ -53,7 +53,9 @@ if 'CONNECTION' in devices[0].getProperties():
 
 time.sleep(0.5)
 
-serverConnection.enableBLOB(devices[0].name, 'CCD_IMAGE')
+serverConnection.enableBLOB()
+
+serverConnection.sendBLOBMessage(devices[0].name, 'CCD_IMAGE')
 
 """ Now we can take a photo with the property CCD_EXPOSURE
 """
