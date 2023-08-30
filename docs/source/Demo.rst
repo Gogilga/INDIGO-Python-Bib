@@ -2,9 +2,29 @@
 Demo
 ####
 
-Here, let’s see a tiny demo to show how to use the INDIGO client library.
+Here, let's see a tiny demo that shows how to use the INDIGO client library.
 
-Primarily, we have a function that will serve as a listener for a property. This shows a message when one is turned on.
+First of all, we have to launch an INDIGO server to have something to connect to. To do this, we open a terminal and write:
+
+.. image:: ../images/StartINDIGOServer.png
+    :width: 350
+    :alt: Start a INDIGO Server
+    :align: center
+
+In order to do this, you must have installed INDIGO in your computer. You can download it `here <https://www.indigo-astronomy.org/downloads.html>`_.
+This starts a simulator of a CDD device.
+
+
+So we can continue, if you also install the INDIGO Control Panel, you can watch all the changes taking place in the program. Let's see how it is displayed:
+
+.. image:: ../images/INDIGOControlPanel.png
+    :width: 600
+    :alt: The windows of INDIGO Control Panel.
+    :align: center
+
+If you don't know how INDIGO works, you can find all the information you need to understand it `here <https://www.indigo-astronomy.org/for-users.html>`_.
+
+Now we can start talking about the source code. Primarily, we have a function that will work as a listener for a property. This shows a message when one property is turned on.
 
 .. code-block:: Python
 
@@ -13,7 +33,7 @@ Primarily, we have a function that will serve as a listener for a property. This
         print("The device " + str(property.getDevice().getName()) + " is connected")
 
 
-First of all, we need to make the connection with the server. So we need to provide the IP address and port of the server.
+First of all, we need to make the connection with the server. Therefore, we need to provide the IP address and port of the server.
 
 The default port for INDIGO is 7624.
 
@@ -33,15 +53,15 @@ And now we make a connection to the server by instantiating an INDIGOServerConne
     serverConnection= INDIGOServerConnection("Server", host, port)
     serverConnection.connect()
 
-It is recommended to allow some time for the client to read all the data from the server.
+It is recommended to wait some time for the client to read all the data from the server.
 
 .. code-block:: Python
 
     time.sleep(0.5)
 
-Now we have the connection and can make all we want. For example:
+Now we have established the connection and we can make all we can do with a INDIGO server. For example:
 
-We can add a listener to some devices.
+* We can add a listener to some devices.
 
 .. code-block:: Python
 
@@ -52,7 +72,7 @@ We can add a listener to some devices.
         serverConnection.addPropertyListener(deviceName, 'CONNECTION', connected)
         devices.append(device)
 
-We can turn on some device.
+* We can turn on some device.
 
 We check if the first device in the list has the CONNECTION property. And if true, we send the element CONNECTED to On.
 
@@ -61,7 +81,7 @@ We check if the first device in the list has the CONNECTION property. And if tru
     if 'CONNECTION' in devices[0].getProperties():
         devices[0].getPropertyByName('CONNECTION').sendValues({"CONNECTED":"On"})
 
-We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know that is a BLOB property.
+* We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know it has a BLOB property.
 
 .. code-block:: Python
 
@@ -71,31 +91,31 @@ We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I k
 
     serverConnection.sendBLOBMessage(devices[0].name, 'CCD_IMAGE')
 
-Now we can take a photo with the property CCD_EXPOSURE
+* Now we can take a photo with the property CCD_EXPOSURE.
 
 .. code-block:: Python
     
     devices[0].getPropertyByName('CCD_EXPOSURE').sendValues({"EXPOSURE":"2"})
 
-We must wait for the time that we indicated in the EXPOSURE above.
+* We must wait for the time we indicated in the EXPOSURE above.
 
 .. code-block:: Python
 
     time.sleep(2.5)
 
-And now we can see the photo with the property CCD_IMAGE
+* And now we can see the photo with the property CCD_IMAGE.
 
 .. code-block:: Python
 
     devices[0].getPropertyByName('CCD_IMAGE').sendValues({"IMAGE":str(devices[0].getPropertyByName('CCD_IMAGE').getElementByName('IMAGE').getPath())})
 
-The image will be downloaded to a folder named ``images`` and it will be displayed for viewing.
+The image will be downloaded in a folder named ``images`` and it will be displayed for viewing.
 
-Now we turn off the device and disconnect the client from the server.
+* Now we turn off the device and disconnect the client from the server.
 
 .. code-block:: Python
 
-    devices[0].getPropertyByName('CONNECTION').sendValues({"DINCONNECTED":"On"})
+    devices[0].getPropertyByName('CONNECTION').sendValues({"DISCONNECTED":"On"})
 
     serverConnection.disconnect()
 

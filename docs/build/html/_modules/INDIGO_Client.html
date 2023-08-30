@@ -89,7 +89,7 @@
 
 <span class="sd">    :ivar name: Name of the device.</span>
 <span class="sd">    :ivar server: Instance of the server.</span>
-<span class="sd">    :ivar properties: List of all properties that are part of the current device.</span>
+<span class="sd">    :ivar properties: Dictionary of all properties that are part of the current device. Has the name of property as key and the INDIGOProperty as value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>       
     <span class="n">name</span><span class="o">=</span> <span class="kc">None</span>
     <span class="n">server</span><span class="o">=</span> <span class="kc">None</span>
@@ -101,7 +101,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="INDIGODevice._parseVectorTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGODevice._parseVectorTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parseVectorTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method.</span>
+        <span class="sd">&quot;&quot;&quot;Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -115,7 +115,7 @@
 
 
 <div class="viewcode-block" id="INDIGODevice._parseDelTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGODevice._parseDelTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parseDelTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Here, we delete the property upon receiving a delProperty message from the server.</span>
+        <span class="sd">&quot;&quot;&quot;Here, we delete the property upon receiving a delProperty message from the server. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -132,14 +132,31 @@
                 
             <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
         
-    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+<div class="viewcode-block" id="INDIGODevice.getName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGODevice.getName">[docs]</a>    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the name of the device.</span>
+
+<span class="sd">        :return: Name of device</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
         
-    <span class="k">def</span> <span class="nf">getPropertyByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<div class="viewcode-block" id="INDIGODevice.getPropertyByName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGODevice.getPropertyByName">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the property by its name.</span>
+
+<span class="sd">        :param name: Name of the property.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :return: The objet of the property.</span>
+<span class="sd">        :rtype: INDIGOProperty</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
     
-    <span class="k">def</span> <span class="nf">getProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span></div>
+<div class="viewcode-block" id="INDIGODevice.getProperties"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGODevice.getProperties">[docs]</a>    <span class="k">def</span> <span class="nf">getProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get te properties of the device.</span>
+
+<span class="sd">        :return: Properties.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span></div></div>
 
 
 <div class="viewcode-block" id="INDIGOProperty"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty">[docs]</a><span class="k">class</span> <span class="nc">INDIGOProperty</span><span class="p">:</span>
@@ -148,7 +165,7 @@
 <span class="sd">    :ivar name: Name of the property.</span>
 <span class="sd">    :ivar device: Instance of the device that is part of the property.</span>
 <span class="sd">    :ivar attributes: List of all attributes that the current property has.</span>
-<span class="sd">    :ivar elements: List of all elements that are part of the current property.</span>
+<span class="sd">    :ivar elements: Dictionary of all elements that are part of the current property. Has the name of the element as key and a INDIGOElement as value.</span>
 <span class="sd">    :ivar lastUpdate: It&#39;s a variable that indicates the last time the property was updated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>  
     <span class="n">name</span><span class="o">=</span> <span class="kc">None</span>
@@ -178,7 +195,7 @@
 
 <div class="viewcode-block" id="INDIGOProperty._parseVectorTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty._parseVectorTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parseVectorTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Here we create the new properties saving its attributes and its INDIGO elements by instantiating an INDIGOElement and calling </span>
-<span class="sd">        its _parserElementTag method.</span>
+<span class="sd">        its _parserElementTag method. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -193,78 +210,152 @@
                 
             <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">_parseElementTag</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></div>
             
-    <span class="k">def</span> <span class="nf">getGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getGroup"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getGroup">[docs]</a>    <span class="k">def</span> <span class="nf">getGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribbute group that the property belongs to.</span>
+
+<span class="sd">        :return: The group.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;group&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getLabel"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getLabel">[docs]</a>    <span class="k">def</span> <span class="nf">getLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the label of the property.</span>
+
+<span class="sd">        :return: The label.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;label&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getPerm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getPerm"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getPerm">[docs]</a>    <span class="k">def</span> <span class="nf">getPerm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute perm of the property.</span>
+
+<span class="sd">        :return: The perm.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;label&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;perm&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getState"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getState">[docs]</a>    <span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the state of the porperty.</span>
+
+<span class="sd">        :return: The state.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;state&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getRule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getRule"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getRule">[docs]</a>    <span class="k">def</span> <span class="nf">getRule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute rule of the property.</span>
+
+<span class="sd">        :return: The rule.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;rule&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
     
-    <span class="k">def</span> <span class="nf">getTimeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getTimeout"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getTimeout">[docs]</a>    <span class="k">def</span> <span class="nf">getTimeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the timeout of the property.</span>
+
+<span class="sd">        :return: The timeout.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;timeout&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getTimestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getTimestamp"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getTimestamp">[docs]</a>    <span class="k">def</span> <span class="nf">getTimestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute timestamp of the property.</span>
+
+<span class="sd">        :return: The timestamp.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;timestamp&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getMessage"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getMessage">[docs]</a>    <span class="k">def</span> <span class="nf">getMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the message of the property.</span>
+
+<span class="sd">        :return: The message.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;message&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getLight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOProperty.getLight"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getLight">[docs]</a>    <span class="k">def</span> <span class="nf">getLight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute light of the property.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertyType</span> <span class="o">==</span> <span class="s2">&quot;Light&quot;</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It&#39;s type light&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span></div>
             <span class="c1">#return self.attributes[&#39;light&#39;]</span>
     
-    <span class="k">def</span> <span class="nf">getElementByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<div class="viewcode-block" id="INDIGOProperty.getElementByName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getElementByName">[docs]</a>    <span class="k">def</span> <span class="nf">getElementByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the element by its name.</span>
+
+<span class="sd">        :param name: Name of the element.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :return: The objet of the element.</span>
+<span class="sd">        :rtype: INDIGOElement</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
     
-    <span class="k">def</span> <span class="nf">getPropertyType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertyType</span>
+<div class="viewcode-block" id="INDIGOProperty.getPropertyType"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getPropertyType">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the type of the property.</span>
+
+<span class="sd">        :return: The type.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">propertyType</span></div>
     
-    <span class="k">def</span> <span class="nf">getPropertyName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+<div class="viewcode-block" id="INDIGOProperty.getPropertyName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getPropertyName">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the name of the property.</span>
+
+<span class="sd">        :return: The name of the property.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
     
-    <span class="k">def</span> <span class="nf">getAttributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span>
+<div class="viewcode-block" id="INDIGOProperty.getAttributes"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getAttributes">[docs]</a>    <span class="k">def</span> <span class="nf">getAttributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get all the attributes of the property.</span>
+
+<span class="sd">        :return: The list of the attributes.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span></div>
     
-    <span class="k">def</span> <span class="nf">getElements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>
+<div class="viewcode-block" id="INDIGOProperty.getElements"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getElements">[docs]</a>    <span class="k">def</span> <span class="nf">getElements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the all the elements of the property.</span>
+
+<span class="sd">        :return: A dict with the elements.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span></div>
     
-    <span class="k">def</span> <span class="nf">getDevice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+<div class="viewcode-block" id="INDIGOProperty.getDevice"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.getDevice">[docs]</a>    <span class="k">def</span> <span class="nf">getDevice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the device that the property belongs to.</span>
+
+<span class="sd">        :return: The device.</span>
+<span class="sd">        :rtype: INDIGODevice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span></div>
     
 <div class="viewcode-block" id="INDIGOProperty.sendValues"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOProperty.sendValues">[docs]</a>    <span class="k">def</span> <span class="nf">sendValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elementNamesAndValues</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function that sends the values to the server, but first applies a filter to send only the correct values and returns an error </span>
@@ -361,7 +452,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
         
 <div class="viewcode-block" id="INDIGOElement._parseElementTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement._parseElementTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parseElementTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Here we create the new elements and save all the attributes and values of the INDIGO elements.</span>
+        <span class="sd">&quot;&quot;&quot;Here we create the new elements and save all the attributes and values of the INDIGO elements. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -370,64 +461,106 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">text</span></div>
 
         
-    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+<div class="viewcode-block" id="INDIGOElement.getName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getName">[docs]</a>    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function that get the name of the element.</span>
+
+<span class="sd">        :return: Name of the element.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
     
-    <span class="k">def</span> <span class="nf">getLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getLabel"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getLabel">[docs]</a>    <span class="k">def</span> <span class="nf">getLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute label of the element.</span>
+
+<span class="sd">        :return: The label attriibute.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;label&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getFormat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getFormat"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getFormat">[docs]</a>    <span class="k">def</span> <span class="nf">getFormat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the format of the element.</span>
+
+<span class="sd">        :return: The format.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;format&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getMin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getMin"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getMin">[docs]</a>    <span class="k">def</span> <span class="nf">getMin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the min value that the element can take.</span>
+
+<span class="sd">        :return: The min value.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;min&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getMax"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getMax">[docs]</a>    <span class="k">def</span> <span class="nf">getMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the max value that the element can take.</span>
+
+<span class="sd">        :return: The max value.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;max&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getStep"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getStep">[docs]</a>    <span class="k">def</span> <span class="nf">getStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the step by which the value of the element advances.</span>
+
+<span class="sd">        :return: The step.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;step&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="k">def</span> <span class="nf">getPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getPath"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getPath">[docs]</a>    <span class="k">def</span> <span class="nf">getPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the path where the image is saved in the server. This only works with the BLOB properties type.</span>
+
+<span class="sd">        :return: The path of the image.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;path&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
     
-    <span class="k">def</span> <span class="nf">getTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="INDIGOElement.getTarget"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getTarget">[docs]</a>    <span class="k">def</span> <span class="nf">getTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the attribute target of the element.</span>
+
+<span class="sd">        :return: The target.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span><span class="p">(</span><span class="s1">&#39;target&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
         
-        <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
-    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    
-    <span class="k">def</span> <span class="nf">getAttributesElement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span>
-    
-<div class="viewcode-block" id="INDIGOElement.setValue"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.setValue">[docs]</a>    <span class="k">def</span> <span class="nf">setValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set a new value to the element.</span>
+<div class="viewcode-block" id="INDIGOElement.getValue"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getValue">[docs]</a>    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the current value of the element.</span>
 
-<span class="sd">        :param value: New value to set.</span>
-<span class="sd">        :type value: float or str</span>
+<span class="sd">        :return: The value of the element.</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">=</span> <span class="n">value</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
+    
+<div class="viewcode-block" id="INDIGOElement.getAttributesElement"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOElement.getAttributesElement">[docs]</a>    <span class="k">def</span> <span class="nf">getAttributesElement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get all the attributes of the element.</span>
+
+<span class="sd">        :return: Attributes of the element.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span></div></div>
 
 
 
@@ -440,7 +573,7 @@
 <span class="sd">    :ivar _sock: This is a variable that will contain a socket connection to the server.</span>
 <span class="sd">    :ivar _endReading: Check if the socket has reached the end of reading for the pipeline of the server connection.</span>
 <span class="sd">    :ivar _thread: This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.</span>
-<span class="sd">    :ivar devices: A list of all devices of the server.</span>
+<span class="sd">    :ivar devices: A dictionary of all devices of the server. Has the name of device as key and the INDIGODevice as value.</span>
 <span class="sd">    :ivar wait: Set a time to wait to execute some functions.</span>
 <span class="sd">    :ivar blobMode: It indicate if the BLOB mode is *Never* or *URL*.</span>
 <span class="sd">    :ivar propertyListeners: List of listeners for properties.</span>
@@ -573,8 +706,13 @@
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">getBLOBmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span>
+<div class="viewcode-block" id="INDIGOServerConnection.getBLOBmode"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.getBLOBmode">[docs]</a>    <span class="k">def</span> <span class="nf">getBLOBmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get the current value of the BLOB mode.</span>
+
+<span class="sd">        :return: The value of the BLOB mode</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">blobMode</span></div>
 
 <div class="viewcode-block" id="INDIGOServerConnection.getPropertyByName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.getPropertyByName">[docs]</a>    <span class="k">def</span> <span class="nf">getPropertyByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deviceName</span><span class="p">,</span> <span class="n">propertyName</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;With this function, we can obtain property objet from the name of a property.</span>
@@ -627,7 +765,7 @@
     
 <div class="viewcode-block" id="INDIGOServerConnection._readerFunction"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection._readerFunction">[docs]</a>    <span class="k">def</span> <span class="nf">_readerFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;In this function, we read all messages from the server and call some functions that implement the parser in each case. This is</span>
-<span class="sd">        an infinte loop that only finish when the socket is closed.</span>
+<span class="sd">        an infinte loop that only finish when the socket is closed. **This function is private, you must not use it**.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="n">parser</span><span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">XMLPullParser</span><span class="p">([</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
 
@@ -686,8 +824,13 @@
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">False</span></div>
     
-    <span class="k">def</span> <span class="nf">getDevices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">devices</span>
+<div class="viewcode-block" id="INDIGOServerConnection.getDevices"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.getDevices">[docs]</a>    <span class="k">def</span> <span class="nf">getDevices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to get all the devices of the server.</span>
+
+<span class="sd">        :return: The devices.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">devices</span></div>
     
 <div class="viewcode-block" id="INDIGOServerConnection.getDeviceByName"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.getDeviceByName">[docs]</a>    <span class="k">def</span> <span class="nf">getDeviceByName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Obtain the device objet from the name of a device.</span>
@@ -698,18 +841,6 @@
 <span class="sd">        :rtype: INDIGODevice</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">]</span></div>
-    
-    <span class="k">def</span> <span class="nf">getProperties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">device</span><span class="o">.</span><span class="n">getProperties</span><span class="p">()</span>
-    
-    <span class="k">def</span> <span class="nf">getAttributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">property</span><span class="o">.</span><span class="n">getAttributes</span><span class="p">()</span>
-    
-    <span class="k">def</span> <span class="nf">getElements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">property</span><span class="o">.</span><span class="n">getElements</span><span class="p">()</span>
-    
-    <span class="k">def</span> <span class="nf">getAttributesElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">getAttributesElement</span><span class="p">()</span>
     
 <div class="viewcode-block" id="INDIGOServerConnection.downloadImage"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection.downloadImage">[docs]</a>    <span class="k">def</span> <span class="nf">downloadImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">path</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;We create a URL with the path in the parameter, the IP of the host, and the port. Later, we check if the downloaded path exists,</span>
@@ -741,12 +872,12 @@
             <span class="n">img</span><span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">downloadPath</span><span class="p">)</span>
             <span class="n">imgData</span><span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
 
-            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgData</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">imgData</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">imgData</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">imgData</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
 
             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="INDIGOServerConnection._parserMessageTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection._parserMessageTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parserMessageTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+        <span class="sd">&quot;&quot;&quot;Here we parse the messages coming from the server. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -768,7 +899,7 @@
 
 <div class="viewcode-block" id="INDIGOServerConnection._parseVectorTag"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection._parseVectorTag">[docs]</a>    <span class="k">def</span> <span class="nf">_parseVectorTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Here we create the new elements by instantiating an INDIGODevice and calling its _parserVectorTag method. Finally, we get </span>
-<span class="sd">        the name of the device and the name of the property to check if it is in the list of listeners and execute its listener.</span>
+<span class="sd">        the name of the device and the name of the property to check if it is in the list of listeners and execute its listener. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param tag: Element of the parser of XML message.</span>
 <span class="sd">        :type tag: xml.etree.ElementTree.Element</span>
@@ -794,7 +925,7 @@
 
 <div class="viewcode-block" id="INDIGOServerConnection._send"><a class="viewcode-back" href="../INDIGO_Client.html#INDIGO_Client.INDIGOServerConnection._send">[docs]</a>    <span class="k">def</span> <span class="nf">_send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is used to send messages to the server whenever needed. This message can be used to turn on or off some devices; </span>
-<span class="sd">        create, modify or erase some property, etc</span>
+<span class="sd">        create, modify or erase some property, etc. **This function is private, you must not use it**.</span>
 
 <span class="sd">        :param command: Message to send.</span>
 <span class="sd">        :type command: str</span>

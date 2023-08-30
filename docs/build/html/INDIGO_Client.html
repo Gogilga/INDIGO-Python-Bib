@@ -90,7 +90,7 @@
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> – Name of the device.</li>
 <li><strong>server</strong> – Instance of the server.</li>
-<li><strong>properties</strong> – List of all properties that are part of the current device.</li>
+<li><strong>properties</strong> – Dictionary of all properties that are part of the current device. Has the name of property as key and the INDIGOProperty as value.</li>
 </ul>
 </td>
 </tr>
@@ -99,7 +99,7 @@
 <dl class="method">
 <dt id="INDIGO_Client.INDIGODevice._parseDelTag">
 <code class="descname">_parseDelTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGODevice._parseDelTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGODevice._parseDelTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Here, we delete the property upon receiving a delProperty message from the server.</p>
+<dd><p>Here, we delete the property upon receiving a delProperty message from the server. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -113,12 +113,62 @@
 <dl class="method">
 <dt id="INDIGO_Client.INDIGODevice._parseVectorTag">
 <code class="descname">_parseVectorTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGODevice._parseVectorTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGODevice._parseVectorTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method.</p>
+<dd><p>Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.11)"><em>xml.etree.ElementTree.Element</em></a>) – Element of the parser of XML message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGODevice.getName">
+<code class="descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGODevice.getName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGODevice.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the name of the device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Name of device</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGODevice.getProperties">
+<code class="descname">getProperties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGODevice.getProperties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGODevice.getProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get te properties of the device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Properties.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGODevice.getPropertyByName">
+<code class="descname">getPropertyByName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGODevice.getPropertyByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGODevice.getPropertyByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the property by its name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the property.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The objet of the property.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#INDIGO_Client.INDIGOProperty" title="INDIGO_Client.INDIGOProperty">INDIGOProperty</a></td>
 </tr>
 </tbody>
 </table>
@@ -150,7 +200,7 @@
 <dl class="method">
 <dt id="INDIGO_Client.INDIGOElement._parseElementTag">
 <code class="descname">_parseElementTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement._parseElementTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement._parseElementTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Here we create the new elements and save all the attributes and values of the INDIGO elements.</p>
+<dd><p>Here we create the new elements and save all the attributes and values of the INDIGO elements. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -162,14 +212,160 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="INDIGO_Client.INDIGOElement.setValue">
-<code class="descname">setValue</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.setValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.setValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a new value to the element.</p>
+<dt id="INDIGO_Client.INDIGOElement.getAttributesElement">
+<code class="descname">getAttributesElement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getAttributesElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getAttributesElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get all the attributes of the element.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – New value to set.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Attributes of the element.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getFormat">
+<code class="descname">getFormat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getFormat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the format of the element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The format.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getLabel">
+<code class="descname">getLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute label of the element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The label attriibute.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getMax">
+<code class="descname">getMax</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getMax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the max value that the element can take.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The max value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getMin">
+<code class="descname">getMin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getMin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getMin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the min value that the element can take.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The min value.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getName">
+<code class="descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that get the name of the element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Name of the element.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getPath">
+<code class="descname">getPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getPath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the path where the image is saved in the server. This only works with the BLOB properties type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The path of the image.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getStep">
+<code class="descname">getStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the step by which the value of the element advances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The step.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getTarget">
+<code class="descname">getTarget</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute target of the element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The target.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOElement.getValue">
+<code class="descname">getValue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOElement.getValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOElement.getValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the current value of the element.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The value of the element.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -192,7 +388,7 @@
 <li><strong>name</strong> – Name of the property.</li>
 <li><strong>device</strong> – Instance of the device that is part of the property.</li>
 <li><strong>attributes</strong> – List of all attributes that the current property has.</li>
-<li><strong>elements</strong> – List of all elements that are part of the current property.</li>
+<li><strong>elements</strong> – Dictionary of all elements that are part of the current property. Has the name of the element as key and a INDIGOElement as value.</li>
 <li><strong>lastUpdate</strong> – It’s a variable that indicates the last time the property was updated.</li>
 </ul>
 </td>
@@ -203,12 +399,244 @@
 <dt id="INDIGO_Client.INDIGOProperty._parseVectorTag">
 <code class="descname">_parseVectorTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty._parseVectorTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty._parseVectorTag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Here we create the new properties saving its attributes and its INDIGO elements by instantiating an INDIGOElement and calling
-its _parserElementTag method.</p>
+its _parserElementTag method. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element" title="(in Python v3.11)"><em>xml.etree.ElementTree.Element</em></a>) – Element of the parser of XML message.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getAttributes">
+<code class="descname">getAttributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get all the attributes of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of the attributes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getDevice">
+<code class="descname">getDevice</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getDevice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the device that the property belongs to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The device.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">INDIGODevice.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getElementByName">
+<code class="descname">getElementByName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getElementByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getElementByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the element by its name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the element.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The objet of the element.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#INDIGO_Client.INDIGOElement" title="INDIGO_Client.INDIGOElement">INDIGOElement</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getElements">
+<code class="descname">getElements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getElements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getElements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the all the elements of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dict with the elements.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getGroup">
+<code class="descname">getGroup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribbute group that the property belongs to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The group.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getLabel">
+<code class="descname">getLabel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the label of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The label.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getLight">
+<code class="descname">getLight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getLight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getLight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute light of the property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getMessage">
+<code class="descname">getMessage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getMessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the message of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The message.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getPerm">
+<code class="descname">getPerm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getPerm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getPerm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute perm of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The perm.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getPropertyName">
+<code class="descname">getPropertyName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getPropertyName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getPropertyName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the name of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The name of the property.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getPropertyType">
+<code class="descname">getPropertyType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getPropertyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getPropertyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the type of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The type.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getRule">
+<code class="descname">getRule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getRule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute rule of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The rule.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getState">
+<code class="descname">getState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the state of the porperty.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getTimeout">
+<code class="descname">getTimeout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getTimeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the timeout of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The timeout.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOProperty.getTimestamp">
+<code class="descname">getTimestamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOProperty.getTimestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOProperty.getTimestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the attribute timestamp of the property.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The timestamp.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
 </tr>
 </tbody>
 </table>
@@ -249,7 +677,7 @@ in case they are wrong.</p>
 <li><strong>_sock</strong> – This is a variable that will contain a socket connection to the server.</li>
 <li><strong>_endReading</strong> – Check if the socket has reached the end of reading for the pipeline of the server connection.</li>
 <li><a class="reference external" href="https://docs.python.org/3/library/_thread.html#module-_thread" title="(in Python v3.11)"><strong>_thread</strong></a> – This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.</li>
-<li><strong>devices</strong> – A list of all devices of the server.</li>
+<li><strong>devices</strong> – A dictionary of all devices of the server. Has the name of device as key and the INDIGODevice as value.</li>
 <li><strong>wait</strong> – Set a time to wait to execute some functions.</li>
 <li><strong>blobMode</strong> – It indicate if the BLOB mode is <em>Never</em> or <em>URL</em>.</li>
 <li><strong>propertyListeners</strong> – List of listeners for properties.</li>
@@ -264,7 +692,7 @@ in case they are wrong.</p>
 <dt id="INDIGO_Client.INDIGOServerConnection._parseVectorTag">
 <code class="descname">_parseVectorTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection._parseVectorTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection._parseVectorTag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Here we create the new elements by instantiating an INDIGODevice and calling its _parserVectorTag method. Finally, we get
-the name of the device and the name of the property to check if it is in the list of listeners and execute its listener.</p>
+the name of the device and the name of the property to check if it is in the list of listeners and execute its listener. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -278,7 +706,7 @@ the name of the device and the name of the property to check if it is in the lis
 <dl class="method">
 <dt id="INDIGO_Client.INDIGOServerConnection._parserMessageTag">
 <code class="descname">_parserMessageTag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection._parserMessageTag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection._parserMessageTag" title="Permalink to this definition">¶</a></dt>
-<dd><p>_summary_</p>
+<dd><p>Here we parse the messages coming from the server. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -293,14 +721,14 @@ the name of the device and the name of the property to check if it is in the lis
 <dt id="INDIGO_Client.INDIGOServerConnection._readerFunction">
 <code class="descname">_readerFunction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection._readerFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection._readerFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>In this function, we read all messages from the server and call some functions that implement the parser in each case. This is
-an infinte loop that only finish when the socket is closed.</p>
+an infinte loop that only finish when the socket is closed. <strong>This function is private, you must not use it</strong>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="INDIGO_Client.INDIGOServerConnection._send">
 <code class="descname">_send</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection._send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection._send" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is used to send messages to the server whenever needed. This message can be used to turn on or off some devices;
-create, modify or erase some property, etc</p>
+create, modify or erase some property, etc. <strong>This function is private, you must not use it</strong>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -407,6 +835,22 @@ since this value is <em>NEVER</em> by default.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConnection.getBLOBmode">
+<code class="descname">getBLOBmode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.getBLOBmode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.getBLOBmode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get the current value of the BLOB mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The value of the BLOB mode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="INDIGO_Client.INDIGOServerConnection.getDeviceByName">
 <code class="descname">getDeviceByName</code><span class="sig-paren">(</span><em>device</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.getDeviceByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.getDeviceByName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtain the device objet from the name of a device.</p>
@@ -419,6 +863,22 @@ since this value is <em>NEVER</em> by default.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The objet of the device.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#INDIGO_Client.INDIGODevice" title="INDIGO_Client.INDIGODevice">INDIGODevice</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="INDIGO_Client.INDIGOServerConnection.getDevices">
+<code class="descname">getDevices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/INDIGO_Client.html#INDIGOServerConnection.getDevices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#INDIGO_Client.INDIGOServerConnection.getDevices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to get all the devices of the server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The devices.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>

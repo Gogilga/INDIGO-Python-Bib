@@ -20,7 +20,7 @@ class INDIGODevice:
 
     :ivar name: Name of the device.
     :ivar server: Instance of the server.
-    :ivar properties: List of all properties that are part of the current device.
+    :ivar properties: Dictionary of all properties that are part of the current device. Has the name of property as key and the INDIGOProperty as value.
     """       
     name= None
     server= None
@@ -32,7 +32,7 @@ class INDIGODevice:
         self.properties= {}
 
     def _parseVectorTag(self, tag):
-        """Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method.
+        """Here we create the new devices saving its INDIGO elements by instantiating an INDIGOProperty and calling its _parserVectorTag method. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -46,7 +46,7 @@ class INDIGODevice:
 
 
     def _parseDelTag(self, tag):
-        """Here, we delete the property upon receiving a delProperty message from the server.
+        """Here, we delete the property upon receiving a delProperty message from the server. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -64,12 +64,29 @@ class INDIGODevice:
             self.properties.clear()
         
     def getName(self):
+        """Function to get the name of the device.
+
+        :return: Name of device
+        :rtype: str
+        """        
         return self.name
         
     def getPropertyByName(self, name):
+        """Function to get the property by its name.
+
+        :param name: Name of the property.
+        :type name: str
+        :return: The objet of the property.
+        :rtype: INDIGOProperty
+        """        
         return self.properties[name]
     
     def getProperties(self):
+        """Function to get te properties of the device.
+
+        :return: Properties.
+        :rtype: dict
+        """        
         return self.properties
 
 
@@ -79,7 +96,7 @@ class INDIGOProperty:
     :ivar name: Name of the property.
     :ivar device: Instance of the device that is part of the property.
     :ivar attributes: List of all attributes that the current property has.
-    :ivar elements: List of all elements that are part of the current property.
+    :ivar elements: Dictionary of all elements that are part of the current property. Has the name of the element as key and a INDIGOElement as value.
     :ivar lastUpdate: It's a variable that indicates the last time the property was updated.
     """  
     name= None
@@ -109,7 +126,7 @@ class INDIGOProperty:
 
     def _parseVectorTag(self, tag):
         """Here we create the new properties saving its attributes and its INDIGO elements by instantiating an INDIGOElement and calling 
-        its _parserElementTag method.
+        its _parserElementTag method. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -125,30 +142,55 @@ class INDIGOProperty:
             self.elements[elem.attrib['name']]._parseElementTag(elem)
             
     def getGroup(self):
+        """Function to get the attribbute group that the property belongs to.
+
+        :return: The group.
+        :rtype: str
+        """        
         if ('group' in self.attributes):
             return self.attributes['group']
         
         return None
     
     def getLabel(self):
+        """Function to get the label of the property.
+
+        :return: The label.
+        :rtype: str
+        """        
         if ('label' in self.attributes):
             return self.attributes['label']
         
         return None
     
     def getPerm(self):
+        """Function to get the attribute perm of the property.
+
+        :return: The perm.
+        :rtype: str
+        """        
         if ('label' in self.attributes):
             return self.attributes['perm']
         
         return None
     
     def getState(self):
+        """Function to get the state of the porperty.
+
+        :return: The state.
+        :rtype: str
+        """        
         if ('state' in self.attributes):
             return self.attributes['state']
         
         return None
     
     def getRule(self):
+        """Function to get the attribute rule of the property.
+
+        :return: The rule.
+        :rtype: str
+        """        
         if ('rule' in self.attributes):
             return self.attributes['rule']
         
@@ -156,45 +198,94 @@ class INDIGOProperty:
     
     
     def getTimeout(self):
+        """Function to get the timeout of the property.
+
+        :return: The timeout.
+        :rtype: str
+        """        
         if ('timeout' in self.attributes):
             return self.attributes['timeout']
         
         return None
     
     def getTimestamp(self):
+        """Function to get the attribute timestamp of the property.
+
+        :return: The timestamp.
+        :rtype: str
+        """        
         if ('timestamp' in self.attributes):
             return self.attributes['timestamp']
         
         return None
     
     def getMessage(self):
+        """Function to get the message of the property.
+
+        :return: The message.
+        :rtype: str
+        """        
         if ('message' in self.attributes):
             return self.attributes['message']
         
         return None
     
     def getLight(self):
+        """Function to get the attribute light of the property.
+        """        
         if self.propertyType == "Light":
             print("It's type light")
             print(self.attributes)
             #return self.attributes['light']
     
     def getElementByName(self, name):
+        """Function to get the element by its name.
+
+        :param name: Name of the element.
+        :type name: str
+        :return: The objet of the element.
+        :rtype: INDIGOElement
+        """        
         return self.elements[name]
     
     def getPropertyType(self):
+        """Function to get the type of the property.
+
+        :return: The type.
+        :rtype: str
+        """        
         return self.propertyType
     
     def getPropertyName(self):
+        """Function to get the name of the property.
+
+        :return: The name of the property.
+        :rtype: str
+        """        
         return self.name
     
     def getAttributes(self):
+        """Function to get all the attributes of the property.
+
+        :return: The list of the attributes.
+        :rtype: list
+        """        
         return self.attributes
     
     def getElements(self):
+        """Function to get the all the elements of the property.
+
+        :return: A dict with the elements.
+        :rtype: dict
+        """        
         return self.elements
     
     def getDevice(self):
+        """Function to get the device that the property belongs to.
+
+        :return: The device.
+        :rtype: INDIGODevice.
+        """        
         return self.device
     
     def sendValues(self, elementNamesAndValues):
@@ -292,7 +383,7 @@ class INDIGOElement:
         self.value = None
         
     def _parseElementTag(self, tag):
-        """Here we create the new elements and save all the attributes and values of the INDIGO elements.
+        """Here we create the new elements and save all the attributes and values of the INDIGO elements. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -302,63 +393,105 @@ class INDIGOElement:
 
         
     def getName(self):
+        """Function that get the name of the element.
+
+        :return: Name of the element.
+        :rtype: str
+        """        
         return self.name
     
     def getLabel(self):
+        """Function to get the attribute label of the element.
+
+        :return: The label attriibute.
+        :rtype: str
+        """        
         if ('label' in self.attributes):
             return self.attributes['label']
         
         return None
     
     def getFormat(self):
+        """Function to get the format of the element.
+
+        :return: The format.
+        :rtype: str
+        """        
         if ('format' in self.attributes):
             return self.attributes['format']
         
         return None
     
     def getMin(self):
+        """Function to get the min value that the element can take.
+
+        :return: The min value.
+        :rtype: str
+        """        
         if ('min' in self.attributes):
             return self.attributes['min']
         
         return None
     
     def getMax(self):
+        """Function to get the max value that the element can take.
+
+        :return: The max value.
+        :rtype: str
+        """        
         if ('max' in self.attributes):
             return self.attributes['max']
         
         return None
     
     def getStep(self):
+        """Function to get the step by which the value of the element advances.
+
+        :return: The step.
+        :rtype: str
+        """        
         if ('step' in self.attributes):
             return self.attributes['step']
         
         return None
 
     def getPath(self):
+        """Function to get the path where the image is saved in the server. This only works with the BLOB properties type.
+
+        :return: The path of the image.
+        :rtype: str
+        """        
         if ('path' in self.attributes):
             return self.attributes['path']
 
         return None
     
     def getTarget(self):
+        """Function to get the attribute target of the element.
+
+        :return: The target.
+        :rtype: str
+        """        
         if('target' in self.attributes):
             return self.attributes['target']
         
         return None
 
     def getValue(self):
+        """Function to get the current value of the element.
+
+        :return: The value of the element.
+        :rtype: str
+        """        
         return self.value
     
     def getAttributesElement(self):
-        return self.attributes
-    
-    def setValue(self, value):
-        """Set a new value to the element.
+        """Function to get all the attributes of the element.
 
-        :param value: New value to set.
-        :type value: float or str
+        :return: Attributes of the element.
+        :rtype: list
         """        
-        self.value= value
+        return self.attributes
 
 
 
@@ -371,7 +504,7 @@ class INDIGOServerConnection:
     :ivar _sock: This is a variable that will contain a socket connection to the server.
     :ivar _endReading: Check if the socket has reached the end of reading for the pipeline of the server connection.
     :ivar _thread: This is a variable that will contain a thread that executes a _readerFunction concurrently with the main function.
-    :ivar devices: A list of all devices of the server.
+    :ivar devices: A dictionary of all devices of the server. Has the name of device as key and the INDIGODevice as value.
     :ivar wait: Set a time to wait to execute some functions.
     :ivar blobMode: It indicate if the BLOB mode is *Never* or *URL*.
     :ivar propertyListeners: List of listeners for properties.
@@ -457,6 +590,7 @@ class INDIGOServerConnection:
             self.propertyListeners[name]= []
 
         self.propertyListeners[name].append(listener)
+        
 
     def addMessageListener(self, deviceName, listener):
         """With this function we can add some listeners to the messages received that we want.
@@ -505,6 +639,11 @@ class INDIGOServerConnection:
                 self._send(message)
 
     def getBLOBmode(self):
+        """Function to get the current value of the BLOB mode.
+
+        :return: The value of the BLOB mode
+        :rtype: str
+        """        
         return self.blobMode
 
     def getPropertyByName(self, deviceName, propertyName):
@@ -558,7 +697,7 @@ class INDIGOServerConnection:
     
     def _readerFunction(self):
         """In this function, we read all messages from the server and call some functions that implement the parser in each case. This is
-        an infinte loop that only finish when the socket is closed.
+        an infinte loop that only finish when the socket is closed. **This function is private, you must not use it**.
         """        
         parser= ET.XMLPullParser(['end'])
 
@@ -618,6 +757,11 @@ class INDIGOServerConnection:
         return False
     
     def getDevices(self):
+        """Function to get all the devices of the server.
+
+        :return: The devices.
+        :rtype: dict
+        """        
         return self.devices
     
     def getDeviceByName(self, device):
@@ -629,18 +773,6 @@ class INDIGOServerConnection:
         :rtype: INDIGODevice
         """        
         return self.devices[device]
-    
-    def getProperties(self, device):
-        return device.getProperties()
-    
-    def getAttributes(self, property):
-        return property.getAttributes()
-    
-    def getElements(self, property):
-        return property.getElements()
-    
-    def getAttributesElement(self, element):
-        return element.getAttributesElement()
     
     def downloadImage(self,path):
         """We create a URL with the path in the parameter, the IP of the host, and the port. Later, we check if the downloaded path exists,
@@ -672,12 +804,12 @@ class INDIGOServerConnection:
             img= ft.open(downloadPath)
             imgData= img[0].data
 
-            plt.imshow(imgData)
+            plt.imshow(imgData, vmin=np.min(imgData), vmax=np.mean(imgData)*2, origin='lower')
 
             plt.show()
 
     def _parserMessageTag(self, tag):
-        """_summary_
+        """Here we parse the messages coming from the server. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -699,7 +831,7 @@ class INDIGOServerConnection:
 
     def _parseVectorTag(self, tag):
         """Here we create the new elements by instantiating an INDIGODevice and calling its _parserVectorTag method. Finally, we get 
-        the name of the device and the name of the property to check if it is in the list of listeners and execute its listener.
+        the name of the device and the name of the property to check if it is in the list of listeners and execute its listener. **This function is private, you must not use it**.
 
         :param tag: Element of the parser of XML message.
         :type tag: xml.etree.ElementTree.Element
@@ -725,7 +857,7 @@ class INDIGOServerConnection:
 
     def _send(self, command):
         """This function is used to send messages to the server whenever needed. This message can be used to turn on or off some devices; 
-        create, modify or erase some property, etc
+        create, modify or erase some property, etc. **This function is private, you must not use it**.
 
         :param command: Message to send.
         :type command: str

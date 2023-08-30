@@ -162,7 +162,6 @@
             <span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">deviceChosen</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDeviceByName</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-
         
             <span class="n">listProperties</span><span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="nb">property</span> <span class="ow">in</span> <span class="n">deviceChosen</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
@@ -195,7 +194,6 @@
 
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Type of property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyType</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rule property &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">propertyRule</span><span class="p">))</span>
-                <span class="c1">#print(&quot;Image path: &quot; + str(propertyPath))</span>
                 
             <span class="n">listElements</span><span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span>  <span class="n">propertyChosen</span><span class="o">.</span><span class="n">getElements</span><span class="p">():</span>

@@ -50,7 +50,7 @@ def program():
     serverConnection.addServerListener(connection)
 
     for device in serverConnection.getDevices():
-            serverConnection.addPropertyListener(device,'CONNECTION',connected)
+        serverConnection.addPropertyListener(device,'CONNECTION',connected)
 
 
     # We see if connection is successful
@@ -93,7 +93,6 @@ def program():
             serverConnection.enableBLOB()
         else:
             deviceChosen= serverConnection.getDeviceByName(device)
-
         
             listProperties= []
             for property in deviceChosen.getProperties():
@@ -126,7 +125,6 @@ def program():
 
             print("\nType of property " + str(propertyType))
             print("Rule property " + str(propertyRule))
-                #print("Image path: " + str(propertyPath))
                 
             listElements= []
             for element in  propertyChosen.getElements():

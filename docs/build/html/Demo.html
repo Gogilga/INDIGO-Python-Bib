@@ -69,14 +69,21 @@
              
   <div class="section" id="demo">
 <h1>3. Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
-<p>Here, let’s see a tiny demo to show how to use the INDIGO client library.</p>
-<p>Primarily, we have a function that will serve as a listener for a property. This shows a message when one is turned on.</p>
+<p>Here, let’s see a tiny demo that shows how to use the INDIGO client library.</p>
+<p>First of all, we have to launch an INDIGO server to have something to connect to. To do this, we open a terminal and write:</p>
+<a class="reference internal image-reference" href="_images/StartINDIGOServer.png"><img alt="Start a INDIGO Server" class="align-center" src="_images/StartINDIGOServer.png" style="width: 350px;" /></a>
+<p>In order to do this, you must have installed INDIGO in your computer. You can download it <a class="reference external" href="https://www.indigo-astronomy.org/downloads.html">here</a>.
+This starts a simulator of a CDD device.</p>
+<p>So we can continue, if you also install the INDIGO Control Panel, you can watch all the changes taking place in the program. Let’s see how it is displayed:</p>
+<a class="reference internal image-reference" href="_images/INDIGOControlPanel.png"><img alt="The windows of INDIGO Control Panel." class="align-center" src="_images/INDIGOControlPanel.png" style="width: 600px;" /></a>
+<p>If you don’t know how INDIGO works, you can find all the information you need to understand it <a class="reference external" href="https://www.indigo-astronomy.org/for-users.html">here</a>.</p>
+<p>Now we can start talking about the source code. Primarily, we have a function that will work as a listener for a property. This shows a message when one property is turned on.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
  <span class="k">if</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">):</span>
      <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is connected&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>First of all, we need to make the connection with the server. So we need to provide the IP address and port of the server.</p>
+<p>First of all, we need to make the connection with the server. Therefore, we need to provide the IP address and port of the server.</p>
 <p>The default port for INDIGO is 7624.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;172.30.124.160&quot;</span> <span class="c1"># This is an example of IP address</span>
 <span class="n">port</span> <span class="o">=</span> <span class="mi">7624</span>
@@ -92,12 +99,14 @@
 <span class="n">serverConnection</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>It is recommended to allow some time for the client to read all the data from the server.</p>
+<p>It is recommended to wait some time for the client to read all the data from the server.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now we have the connection and can make all we want. For example:</p>
-<p>We can add a listener to some devices.</p>
+<p>Now we have established the connection and we can make all we can do with a INDIGO server. For example:</p>
+<ul class="simple">
+<li>We can add a listener to some devices.</li>
+</ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">=</span> <span class="n">serverConnection</span><span class="o">.</span><span class="n">getDevices</span><span class="p">()</span>
 
 <span class="n">devices</span><span class="o">=</span> <span class="p">[]</span>
@@ -106,13 +115,17 @@
     <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can turn on some device.</p>
+<ul class="simple">
+<li>We can turn on some device.</li>
+</ul>
 <p>We check if the first device in the list has the CONNECTION property. And if true, we send the element CONNECTED to On.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">&#39;CONNECTION&#39;</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getProperties</span><span class="p">():</span>
     <span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;CONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
-<p>We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know that is a BLOB property.</p>
+<ul class="simple">
+<li>We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know it is a BLOB property.</li>
+</ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="n">serverConnection</span><span class="o">.</span><span class="n">enableBLOB</span><span class="p">()</span>
@@ -120,21 +133,29 @@
 <span class="n">serverConnection</span><span class="o">.</span><span class="n">sendBLOBMessage</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now we can take a photo with the property CCD_EXPOSURE</p>
+<ul class="simple">
+<li>Now we can take a photo with the property CCD_EXPOSURE.</li>
+</ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_EXPOSURE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;EXPOSURE&quot;</span><span class="p">:</span><span class="s2">&quot;2&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
-<p>We must wait for the time that we indicated in the EXPOSURE above.</p>
+<ul class="simple">
+<li>We must wait for the time we indicated in the EXPOSURE above.</li>
+</ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>And now we can see the photo with the property CCD_IMAGE</p>
+<ul class="simple">
+<li>And now we can see the photo with the property CCD_IMAGE.</li>
+</ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;IMAGE&quot;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CCD_IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;IMAGE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getPath</span><span class="p">())})</span>
 </pre></div>
 </div>
-<p>The image will be downloaded to a folder named <code class="docutils literal notranslate"><span class="pre">images</span></code> and it will be displayed for viewing.</p>
-<p>Now we turn off the device and disconnect the client from the server.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;DINCONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
+<p>The image will be downloaded in a folder named <code class="docutils literal notranslate"><span class="pre">images</span></code> and it will be displayed for viewing.</p>
+<ul class="simple">
+<li>Now we turn off the device and disconnect the client from the server.</li>
+</ul>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPropertyByName</span><span class="p">(</span><span class="s1">&#39;CONNECTION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sendValues</span><span class="p">({</span><span class="s2">&quot;DISCONNECTED&quot;</span><span class="p">:</span><span class="s2">&quot;On&quot;</span><span class="p">})</span>
 
 <span class="n">serverConnection</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 </pre></div>

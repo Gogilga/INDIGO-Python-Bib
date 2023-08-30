@@ -47,6 +47,8 @@ for deviceName, device in serverConnection.getDevices().items():
 # We check if the first device in the list has the CONNECTION property. And if true, we send the element CONNECTED to On.
 if 'CONNECTION' in devices[0].getProperties():
     devices[0].getPropertyByName('CONNECTION').sendValues({"CONNECTED":"On"})
+elif 'CONNECTION' in devices[1].getProperties():
+    devices[0].getPropertyByName('CONNECTION').sendValues({"CONNECTED":"On"})
 
 """* We can enable BLOB obbjets.
 """
@@ -76,6 +78,6 @@ devices[0].getPropertyByName('CCD_IMAGE').sendValues({"IMAGE":str(devices[0].get
 """ Now we turn off the device and disconnect the client from the server.
 """
 
-devices[0].getPropertyByName('CONNECTION').sendValues({"DINCONNECTED":"On"})
+devices[0].getPropertyByName('CONNECTION').sendValues({"DISCONNECTED":"On"})
 
 serverConnection.disconnect()
