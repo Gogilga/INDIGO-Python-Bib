@@ -24,7 +24,15 @@ So we can continue, if you also install the INDIGO Control Panel, you can watch 
 
 If you don't know how INDIGO works, you can find all the information you need to understand it `here <https://www.indigo-astronomy.org/for-users.html>`_.
 
-Now we can start talking about the source code. Primarily, we have a function that will work as a listener for a property. This shows a message when one property is turned on.
+Now we can start talking about the source code. Primarily, we have to import the INDIGO Python Bib to work with all the functions in there.
+
+.. code-block:: Python
+
+    from INDIGO_Client import INDIGOServerConnection
+
+The file INDIGO_Client.py must be in the same folder as your code. If it is in another folder, you must use the relative path to this file.
+
+Now, we have a function that will work as a listener for a property. This shows a message when one property is turned on.
 
 .. code-block:: Python
 

@@ -77,7 +77,12 @@ This starts a simulator of a CDD device.</p>
 <p>So we can continue, if you also install the INDIGO Control Panel, you can watch all the changes taking place in the program. Let’s see how it is displayed:</p>
 <a class="reference internal image-reference" href="_images/INDIGOControlPanel.png"><img alt="The windows of INDIGO Control Panel." class="align-center" src="_images/INDIGOControlPanel.png" style="width: 600px;" /></a>
 <p>If you don’t know how INDIGO works, you can find all the information you need to understand it <a class="reference external" href="https://www.indigo-astronomy.org/for-users.html">here</a>.</p>
-<p>Now we can start talking about the source code. Primarily, we have a function that will work as a listener for a property. This shows a message when one property is turned on.</p>
+<p>Now we can start talking about the source code. Primarily, we have to import the INDIGO Python Bib to work with all the functions in there.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">INDIGO_Client</span> <span class="kn">import</span> <span class="n">INDIGOServerConnection</span>
+</pre></div>
+</div>
+<p>The file INDIGO_Client.py must be in the same folder as your code. If it is in another folder, you must use the relative path to this file.</p>
+<p>Now, we have a function that will work as a listener for a property. This shows a message when one property is turned on.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="nb">property</span><span class="p">):</span>
  <span class="k">if</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getElementByName</span><span class="p">(</span><span class="s1">&#39;CONNECTED&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;On&#39;</span><span class="p">):</span>
      <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The device &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">property</span><span class="o">.</span><span class="n">getDevice</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; is connected&quot;</span><span class="p">)</span>
@@ -124,7 +129,7 @@ This starts a simulator of a CDD device.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li>We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know it is a BLOB property.</li>
+<li>We can enable BLOB obbjets. In this case I use a CCD_IMAGE property, because I know it has a BLOB property.</li>
 </ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
