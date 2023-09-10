@@ -75,13 +75,13 @@ def program():
         print(tabulate(listDevices, headers=['Devices'], showindex= True, tablefmt='rounded_outline', numalign="right"))
 
         try:
-            chose= int(input("\nChoose a device for view its properties: ") or "0")
+            chose= int(input("\nChoose a device to view its properties: ") or "0")
         except KeyboardInterrupt:
             #print("Has pulsed Ctrl+c for end the execute")
             break
         except ValueError:
             print("That's not int")
-            chose= int(input("\nChoose a device for view its properties: ") or "0")
+            chose= int(input("\nChoose a device to view its properties: ") or "0")
 
         # Let's remove the characters to the color for have only the name of device
         device= listDevices[chose][0]
@@ -109,13 +109,13 @@ def program():
             print("\n" + tabulate(listProperties, headers=['Group', f'Properties of {device}'], showindex= True, tablefmt='rounded_outline', numalign="right"))
 
             try:
-                chose= int(input("\nChoose a property for view its elements: ") or "0")
+                chose= int(input("\nChoose a property to view its elements: ") or "0")
             except KeyboardInterrupt:
                 #print("Has pulsed Ctrl+c for end the execute")
                 break
             except ValueError:
                 print("That's not int")
-                chose= int(input("\nChoose a property for view its elements: ") or "0")
+                chose= int(input("\nChoose a property to view its elements: ") or "0")
 
             property= listProperties[chose][1]
 
@@ -137,13 +137,13 @@ def program():
             print("\n" + tabulate(listElements, headers=[f'Elements of {property}',  'Value'] ,showindex= True, tablefmt='rounded_outline', numalign="right"))
 
             try:
-                chose= int(input("\nChoose a element for view its attributes: ") or "0")
+                chose= int(input("\nChoose a element to view its attributes: ") or "0")
             except KeyboardInterrupt:
                     #print("Has pulsed Ctrl+c for end the execute")
                 break
             except ValueError:
                 print("That's not int")
-                chose= int(input("\nChoose a element for view its attributes: ") or "0")
+                chose= int(input("\nChoose a element to view its attributes: ") or "0")
 
             element= listElements[chose][0]
             elementChosen= propertyChosen.getElementByName(element)
